@@ -105,7 +105,7 @@ chatbot-intent/
 ├── rag/                   # pipeline PDF: pdf_extract, chunking, index, retrieve, eval_retrieval
 ├── api/                   # FastAPI (settings, database, security, schemas, main)
 ├── scripts/               # seed_responses.py, make_sandbox_rag.py
-├── deploy/                # contoh berkas layanan Windows (belum dijalankan)
+├── deploy/                # contoh PS1 + pra-terbang + templat layanan Windows (belum dijalankan)
 ├── models/                # hasil fine-tuning (git-ignored)
 ├── vectorstore/           # indeks vektor (git-ignored)
 ├── reports/               # laporan
@@ -171,6 +171,15 @@ python -m scripts.seed_responses --sandbox               # uji pipeline (jawaban
 #   uvicorn api.main:app --host 127.0.0.1 --port 8000
 #   Endpoint: GET /health (publik) | GET /intents | POST /chat  (header X-API-KEY)
 
+# Fase 8: pra-terbang & deployment (berkas contoh; layanan TIDAK dijalankan otomatis)
+python -m scripts.preflight              # cek kesiapan artefak (keluar != 0 bila belum siap)
+python -m scripts.preflight --sandbox    # uji pipeline pada artefak sandbox
+#   Uji layanan (latar depan, hentikan manual): .\deploy\run_api.ps1
+#   Cek sehat:          .\deploy\healthcheck.ps1
+#   Siapkan artefak:    .\deploy\build_artifacts.ps1   (data asli)
+#   Cadangkan DB:       .\deploy\backup_db.ps1
+#   Templat layanan Windows: deploy\windows-service\  (JANGAN dipasang tanpa izin)
+
 # Tes
 python -m pytest -q
 ```
@@ -211,5 +220,5 @@ python -m pytest -q
 | 5 – Pipeline PDF | ✅ kode & uji sandbox (pdf_extract/chunking/index/retrieve/eval_retrieval; 109 tes lulus) |
 | 6 – Routing & e2e | ✅ kode & uji sandbox (src/router.py: faq/dokumen/fallback; 123 tes lulus) |
 | 7 – API & database | ✅ kode & uji sandbox (FastAPI /health,/intents,/chat + SQLite + kunci X-API-KEY; 140 tes lulus) |
-| 8 – Deployment (berkas saja) | belum dimulai |
+| 8 – Deployment (berkas saja) | ✅ kode & uji sandbox (contoh PS1 + preflight + templat layanan; 156 tes lulus) |
 | 9 – Evaluasi final | hanya atas perintah eksplisit |

@@ -1,0 +1,30 @@
+# =============================================================================
+# CONTOH SAJA - JANGAN DIJALANKAN tanpa izin pemilik proyek/server.
+#
+# Memasang layanan Windows = PERUBAHAN SISTEM (butuh Administrator) dan
+# menjadikan proses PERMANEN. Baris `nssm install`/`start` di bawah sengaja
+# dinonaktifkan (komentar).
+#
+# Prasyarat: unduh NSSM (https://nssm.cc) dan letakkan `nssm.exe` di PATH.
+# =============================================================================
+
+$ErrorActionPreference = "Stop"
+
+$root        = "C:\Nitip Ragil\Chatbot"
+$python      = Join-Path $root ".venv\Scripts\python.exe"
+$serviceName = "chatbot-api"
+
+if (-not (Test-Path $python)) {
+    throw "Tidak menemukan virtualenv: $python"
+}
+
+# --- Perintah contoh (JANGAN diaktifkan tanpa izin) -------------------------
+# nssm install $serviceName $python "-m uvicorn api.main:app --host 127.0.0.1 --port 8000"
+# nssm set $serviceName AppDirectory $root
+# nssm set $serviceName AppEnvironmentExtra "PYTHONUTF8=1"
+# nssm set $serviceName AppStdout (Join-Path $root "logs\api.out.log")
+# nssm set $serviceName AppStderr (Join-Path $root "logs\api.err.log")
+# nssm set $serviceName Start SERVICE_AUTO_START
+# nssm start $serviceName
+
+Write-Host "[deploy] Ini templat. Aktifkan perintah di atas HANYA setelah mendapat izin."

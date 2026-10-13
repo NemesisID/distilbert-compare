@@ -41,6 +41,9 @@ data/sandbox/vectorstore*/
 logs/
 *.log
 
+# Cadangan database (dibuat oleh deploy/backup_db.ps1)
+backups/
+
 # Database (dibuat oleh scripts/seed_responses.py / saat API jalan)
 *.db
 *.sqlite

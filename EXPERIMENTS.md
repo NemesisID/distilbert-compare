@@ -22,6 +22,7 @@ konfigurasi, seed, metrik, durasi.
 | 5 - Pipeline PDF/retrieval | ✅ kode & uji sandbox | rag/: pdf_extract, chunking, index (dense+BM25), retrieve (RRF), eval_retrieval (tau2); 109 tes lulus |
 | 6 - Routing & e2e | ✅ kode & uji sandbox | src/router.py: intent+tau1+retrieval/tau2 -> faq/dokumen/fallback; 123 tes lulus |
 | 7 - API & database | ✅ kode & uji sandbox | api/: FastAPI (/health, /intents, /chat) + SQLite (SQLAlchemy) + kunci X-API-KEY + rate limit + CORS; scripts/seed_responses.py; 140 tes lulus |
+| 8 - Deployment | ✅ kode & uji sandbox | deploy/ (contoh PS1 + templat layanan Windows, berkas saja) + scripts/preflight.py; 156 tes lulus |
 
 ### 2026-10-13 - Fase 0 (lingkungan)
 
@@ -133,6 +134,20 @@ konfigurasi, seed, metrik, durasi.
   `StarletteDeprecationWarning` (saran `httpx2`) — hanya peringatan, semua tes lulus.
 - `python -m pytest -q` -> 140 passed.
 
+### 2026-10-13 - Fase 8 (berkas deployment, belum dijalankan)
+
+- Ditambahkan `scripts/preflight.py`: pemeriksaan kesiapan tanpa menjalankan
+  layanan (`.env` + kunci API, berkas jawaban, direktori model, indeks
+  retrieval, database `responses`). `python -m scripts.preflight --sandbox`
+  **[SANDBOX]** -> **SIAP** (11 intent, model smoke, vectorstore dense+bm25,
+  11 jawaban); keluar kode != 0 bila belum siap.
+- Berkas contoh di `deploy/` (**tidak** dijalankan otomatis): `run_api.ps1`
+  (uvicorn latar depan + preflight), `healthcheck.ps1`, `build_artifacts.ps1`,
+  `backup_db.ps1`, `env.production.example`, dan templat layanan Windows
+  (`windows-service/`: NSSM + WinSW) yang **dinonaktifkan** (butuh izin).
+- Tidak mengubah firewall/IIS/registry; tidak menjalankan layanan permanen.
+- `python -m pytest -q` -> 156 passed.
+
 ---
 
 ## Log eksperimen
@@ -142,6 +157,7 @@ konfigurasi, seed, metrik, durasi.
 | Tanggal | Fase/Skrip | Model | Konfigurasi | Seed | Metrik | Durasi |
 |---------|------------|-------|-------------|------|--------|--------|
 <!-- APPEND_ROWS_HERE -->
+| 2026-10-13 | Fase 8 - preflight deployment | smoke | [SANDBOX] require_env=False checks=answers,model,vectorstore,db | 42 | [SANDBOX] status=SIAP \| answers=11 \| vs=dense+bm25 \| db=11 | 0.00s |
 | 2026-10-13 | Fase 7 - API e2e (smoke) | smoke | [SANDBOX] FastAPI+SQLite auth=X-API-KEY seed=11 taut1=0.40 | 42 | [SANDBOX] health=ok \| intents=11 \| chat_no_key=401 \| routes=fallback(3) | 0.00s |
 | 2026-10-13 | Fase 6 - routing e2e (val) | smoke | [SANDBOX] method=rrf tau1=0.40 tau2=0.30 n=12 | 42 | [SANDBOX] accuracy=0.3333 | 0.00s |
 | 2026-10-13 | Fase 5 - retrieval PDF (eval) | rrf | [SANDBOX] method=rrf top_k=3 rrf_k=60 tau2=0.3 status=relaxed | 42 | [SANDBOX] mrr=1.0000 \| recall_at_1=1.0000 \| recall_at_k=1.0000 \| tau=0.3000 \| in_doc_recall=0.0000 \| out_doc_false_accept=0.0000 \| n_in_doc=4 \| n_out_doc=4 | 0.00s |

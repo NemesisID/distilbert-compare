@@ -1,0 +1,26 @@
+<!--
+  CONTOH SAJA - jangan dipasang tanpa izin pemilik proyek/server.
+  WinSW: https://github.com/winsw/winsw
+  Jalankan layanan Windows = perubahan sistem (butuh Administrator) dan
+  menjadikan proses permanen.
+-->
+<service>
+  <id>chatbot-api</id>
+  <name>Chatbot API (Inkubator Bisnis)</name>
+  <description>Layanan REST chatbot inkubator. Bind lokal, diteruskan reverse proxy.</description>
+
+  <executable>C:\Nitip Ragil\Chatbot\.venv\Scripts\python.exe</executable>
+  <arguments>-m uvicorn api.main:app --host 127.0.0.1 --port 8000</arguments>
+  <workingdirectory>C:\Nitip Ragil\Chatbot</workingdirectory>
+
+  <env name="PYTHONUTF8" value="1"/>
+
+  <startmode>Automatic</startmode>
+  <logpath>C:\Nitip Ragil\Chatbot\logs</logpath>
+  <log mode="roll-by-size">
+    <sizeThreshold>1048576</sizeThreshold>
+    <keepFiles>8</keepFiles>
+  </log>
+
+  <onfailure action="restart" delay="10 sec"/>
+</service>
