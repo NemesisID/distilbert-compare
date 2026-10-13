@@ -82,3 +82,9 @@ def test_config_intents_present() -> None:
     assert "out_of_scope" in intents
     assert "tanya_dokumen" in intents
     assert len(intents) == 11
+
+
+def test_get_primary_seed_and_seeds() -> None:
+    cfg = data_io.load_config()
+    assert data_io.get_primary_seed(cfg) == 42
+    assert data_io.get_seeds(cfg) == [42, 43, 44]

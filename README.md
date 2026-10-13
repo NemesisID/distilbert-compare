@@ -76,9 +76,10 @@ Daftar lengkap (`pip freeze`) ada di `reports/library_versions.txt`. Versi kunci
 | rank-bm25 | 0.2.2 |
 | pytest | 9.1.1 |
 
-> Catatan: `transformers` sudah versi **5.x** — nama argumen Trainer bisa
-> berbeda dari contoh tutorial lama (mis. `eval_strategy`, `processing_class`).
-> Akan disesuaikan pada Fase 3.
+> Catatan: `transformers` sudah versi **5.x** — nama argumen Trainer berbeda
+> dari contoh tutorial lama. Fase 3 sudah menyesuaikan: `eval_strategy`,
+> `processing_class` (bukan `tokenizer`), `warmup_steps` (karena `warmup_ratio`
+> sudah dihapus), serta `EvalPrediction.predictions` yang dapat berupa tuple.
 
 ---
 
@@ -135,6 +136,13 @@ python -m src.leakage_check      # -> reports/leakage_report.md (exit!=0 bila bo
 python -m src.baseline           # -> reports/baseline_val.md + EXPERIMENTS.md
 #   (tambahkan --sandbox untuk menguji alur memakai data sintetis)
 
+# Fase 3: fine-tuning DistilBERT (CPU-only -> grid diperkecil)
+python -m src.train --mode single --model cahya/distilbert-base-indonesian
+python -m src.train --mode search                       # grid lr x batch di val
+python -m src.train --mode multiseed --lr 2e-5 --batch 16   # 3 seed (42,43,44)
+#   (tambahkan --sandbox untuk uji pipeline di data sintetis)
+#   (--output models/<nama> ; model terbaik disalin ke sana + selected.json)
+
 # Tes
 python -m pytest -q
 ```
@@ -170,7 +178,7 @@ python -m pytest -q
 | 0 – Persiapan | ✅ selesai (Python 3.12.10, torch 2.14.1+cpu, CPU-only) |
 | 1 – Kerangka & data | ✅ selesai (22 tes lulus) |
 | 2 – Augmentasi/leakage/baseline | ✅ kode & uji sandbox (39 tes lulus) |
-| 3 – Fine-tuning DistilBERT | belum dimulai |
+| 3 – Fine-tuning DistilBERT | ✅ kode & uji sandbox (61 tes lulus; single/search/multiseed) |
 | 4 – Kalibrasi & tau1 | belum dimulai |
 | 5 – Pipeline PDF | belum dimulai |
 | 6 – Routing & e2e | belum dimulai |

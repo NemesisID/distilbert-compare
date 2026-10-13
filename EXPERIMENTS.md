@@ -17,7 +17,7 @@ konfigurasi, seed, metrik, durasi.
 | 0 - Persiapan | ✅ selesai | Python 3.12.10 + .venv + semua library; torch 2.14.1+cpu; CPU-only |
 | 1 - Kerangka & data | ✅ selesai | 22 tes pytest lulus (PyYAML asli) |
 | 2 - Augmentasi/leakage/baseline | ✅ kode & uji sandbox | 39 tes lulus; angka sandbox ditandai [SANDBOX] |
-| 3 - Fine-tuning DistilBERT | ⏸️ belum dimulai | menunggu data asli |
+| 3 - Fine-tuning DistilBERT | ✅ kode & uji sandbox | 61 tes lulus; train.py (single/search/multiseed); menunggu persetujuan grid CPU |
 
 ### 2026-10-13 - Fase 0 (lingkungan)
 
@@ -49,6 +49,17 @@ konfigurasi, seed, metrik, durasi.
 - Baseline **[SANDBOX]**: accuracy=0.7200, f1_macro=0.6641 (val 25 baris).
 - Catatan: semua angka di atas dari data sintetis, BUKAN hasil penelitian.
 
+### 2026-10-13 - Fase 3 (uji pipeline, SANDBOX)
+
+- Perintah: `python -m src.train --mode single --sandbox --model cahya/distilbert-base-indonesian --epochs 1 --batch 16 --lr 3e-5`
+- Fine-tuning **[SANDBOX]**: 1 epoch, val 25 baris -> accuracy=0.4400, f1_macro=0.3919
+  (belum konvergen; hanya untuk memvalidasi pipeline, BUKAN hasil penelitian).
+- Catatan teknis transformers 5.19: `eval_strategy`, `processing_class`, `warmup_steps`
+  (bukan `warmup_ratio`), `save_only_model=True`.
+- `torch.cuda.is_available()` = **False** (device_count=0, tanpa `nvidia-smi`) -> CPU-only.
+- `python -m pytest -q` -> 61 passed.
+- Menunggu persetujuan user untuk grid pencarian hyperparameter yang diperkecil.
+
 
 ---
 
@@ -59,4 +70,6 @@ konfigurasi, seed, metrik, durasi.
 | Tanggal | Fase/Skrip | Model | Konfigurasi | Seed | Metrik | Durasi |
 |---------|------------|-------|-------------|------|--------|--------|
 <!-- APPEND_ROWS_HERE -->
+| 2026-10-13 | Fase 3 - fine-tuning | cahya/distilbert-base-indonesian | [SANDBOX] lr=3e-05 batch=16 epochs=1 max_len=64 class_weight=False train=train_aug.csv | 42 | [SANDBOX] accuracy=0.4400 \| f1_macro=0.3919 \| eval_loss=2.2171 \| best_metric=0.3919 | 44.34s |
+| 2026-10-13 | Fase 3 - fine-tuning | cahya/distilbert-base-indonesian | [SANDBOX] lr=3e-05 batch=16 epochs=1 max_len=64 class_weight=False train=train_aug.csv | 42 | [SANDBOX] accuracy=0.4400 \| f1_macro=0.3919 \| eval_loss=2.2171 \| best_metric=0.3919 | 45.43s |
 | 2026-10-13 | Fase 2 - baseline | TF-IDF + LinearSVC | [SANDBOX] ngram=(1,2) sublinear_tf=True C=1.0 max_iter=2000 train=train_aug.csv | 42 | [SANDBOX] accuracy=0.7200 \| f1_macro=0.6641 \| f1_weighted=0.6670 \| precision_macro=0.6424 \| recall_macro=0.7273 | 0.02s |
