@@ -14,8 +14,16 @@ konfigurasi, seed, metrik, durasi.
 
 | Fase | Status | Catatan |
 |------|--------|---------|
-| 0 - Persiapan | ⏳ tertunda | Lingkungan terlapor; TERHAMBAT: Python 3.15 (butuh 3.10-3.12) |
-| 1 - Kerangka & data | ✅ kode & tes siap | 22 tes pytest lulus (dijalankan dgn shim YAML sementara) |
+| 0 - Persiapan | ✅ selesai | Python 3.12.10 + .venv + semua library; torch 2.14.1+cpu; CPU-only |
+| 1 - Kerangka & data | ✅ selesai | 22 tes pytest lulus (PyYAML asli) |
+| 2 - Augmentasi/leakage/baseline | ⏸️ belum dimulai | menunggu data asli |
+
+### 2026-10-13 - Fase 0 (lingkungan)
+
+- Python 3.12.10 dipasang user-level (tanpa Administrator); .venv dibuat ulang.
+- `pip freeze` -> `reports/library_versions.txt` (83 paket).
+- `torch.cuda.is_available()` = **False** -> CPU-only; `nvidia-smi` tidak ada.
+- Tesseract tidak terpasang (relevan untuk Fase 5 bila PDF hasil scan).
 
 ---
 

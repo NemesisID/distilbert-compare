@@ -58,6 +58,28 @@ pip install torch --index-url https://download.pytorch.org/whl/cpu
 Salin `.env.example` menjadi `.env` lalu isi nilainya. **`.env` tidak pernah
 di-commit.**
 
+### Versi library terpasang
+
+Daftar lengkap (`pip freeze`) ada di `reports/library_versions.txt`. Versi kunci:
+
+| Paket | Versi |
+|-------|-------|
+| Python | 3.12.10 (64-bit) |
+| torch | 2.14.1+cpu (**CPU-only**, `cuda.is_available()=False`) |
+| transformers | 5.19.0 |
+| sentence-transformers | 6.1.0 |
+| datasets / evaluate / accelerate | 5.1.0 / 0.4.6 / 1.15.0 |
+| scikit-learn | 1.9.1 |
+| pandas / numpy | 3.0.6 / 2.5.4 |
+| PyMuPDF (pymupdf) | 1.28.2 |
+| FastAPI / SQLAlchemy / pydantic | 0.143.0 / 2.1.4 / 2.14.1 |
+| rank-bm25 | 0.2.2 |
+| pytest | 9.1.1 |
+
+> Catatan: `transformers` sudah versi **5.x** — nama argumen Trainer bisa
+> berbeda dari contoh tutorial lama (mis. `eval_strategy`, `processing_class`).
+> Akan disesuaikan pada Fase 3.
+
 ---
 
 ## Struktur repositori
@@ -139,8 +161,8 @@ python -m pytest -q
 
 | Fase | Status |
 |------|--------|
-| 0 – Persiapan | ⏳ menunggu Python 3.12 dipasang |
-| 1 – Kerangka & data | ✅ kode + tes siap (22 tes lulus) |
+| 0 – Persiapan | ✅ selesai (Python 3.12.10, torch 2.14.1+cpu, CPU-only) |
+| 1 – Kerangka & data | ✅ selesai (22 tes lulus) |
 | 2 – Augmentasi/leakage/baseline | belum dimulai |
 | 3 – Fine-tuning DistilBERT | belum dimulai |
 | 4 – Kalibrasi & tau1 | belum dimulai |
