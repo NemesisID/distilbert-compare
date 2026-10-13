@@ -144,6 +144,11 @@ python -m src.train --mode multiseed --grid reduced --lr 2e-5 --batch 16  # 3 se
 #   (--output models/<nama> ; model terbaik disalin ke sana + selected.json)
 #   (grid "reduced" diatur di config.yaml -> training.reduced_grid)
 
+# Fase 4: kalibrasi suhu & ambang tau1 (HANYA val)
+python -m src.calibrate --model-dir models/distilbert-base-indonesian
+#   (--sandbox untuk uji pipeline -> reports/sandbox_calibration_val.md)
+#   (menghasilkan reports/calibration_val.md + models/<nama>/calibration.json)
+
 # Tes
 python -m pytest -q
 ```
@@ -180,7 +185,7 @@ python -m pytest -q
 | 1 – Kerangka & data | ✅ selesai (22 tes lulus) |
 | 2 – Augmentasi/leakage/baseline | ✅ kode & uji sandbox (39 tes lulus) |
 | 3 – Fine-tuning DistilBERT | ✅ kode & uji sandbox (61 tes lulus; single/search/multiseed) |
-| 4 – Kalibrasi & tau1 | belum dimulai |
+| 4 – Kalibrasi & tau1 | ✅ kode & uji sandbox (temperature scaling + tau1 pada val) |
 | 5 – Pipeline PDF | belum dimulai |
 | 6 – Routing & e2e | belum dimulai |
 | 7 – API & database | belum dimulai |

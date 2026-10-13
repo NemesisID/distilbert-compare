@@ -140,6 +140,11 @@ calibration:
   # Kriteria pemilihan tau1 (dapat diubah pemilik proyek):
   target_accepted_accuracy_min: 0.95
   target_oos_false_accept_max: 0.05
+  batch_size: 32        # ukuran batch saat inferensi pada val
+  n_bins: 10            # bin untuk Expected Calibration Error (ECE)
+  temperature_min: 0.05    # batas bawah suhu (temperature scaling)
+  temperature_max: 20.0    # batas atas suhu
+  temperature_points: 500  # jumlah titik grid log-spaced untuk mencari suhu
 
 # -----------------------------------------------------------------------------
 # Pipeline PDF / retrieval

@@ -17,7 +17,8 @@ konfigurasi, seed, metrik, durasi.
 | 0 - Persiapan | ✅ selesai | Python 3.12.10 + .venv + semua library; torch 2.14.1+cpu; CPU-only |
 | 1 - Kerangka & data | ✅ selesai | 22 tes pytest lulus (PyYAML asli) |
 | 2 - Augmentasi/leakage/baseline | ✅ kode & uji sandbox | 39 tes lulus; angka sandbox ditandai [SANDBOX] |
-| 3 - Fine-tuning DistilBERT | ✅ kode & uji sandbox | 61 tes lulus; train.py (single/search/multiseed); menunggu persetujuan grid CPU |
+| 3 - Fine-tuning DistilBERT | ✅ kode & uji sandbox | 66 tes lulus; train.py (single/search/multiseed); grid CPU disetujui (--grid reduced) |
+| 4 - Kalibrasi & tau1 | ✅ kode & uji sandbox | calibrate.py: temperature scaling (grid) + tau1 pada val; 77 tes lulus |
 
 ### 2026-10-13 - Fase 0 (lingkungan)
 
@@ -63,6 +64,14 @@ konfigurasi, seed, metrik, durasi.
   dijalankan lewat `--grid reduced` saat data asli tersedia.
 - Model pembanding (distilbert-base-multilingual-cased) menyusul bila hasil primer wajar.
 
+### 2026-10-13 - Fase 4 (uji pipeline, SANDBOX)
+
+- Perintah: `python -m src.calibrate --sandbox --model-dir models/smoke`
+- Kalibrasi **[SANDBOX]** (val 25 baris, model smoke 1 epoch): T=0.3254,
+  ECE 0.3026 -> 0.1826; tau1=0.40 (status `ok`) dengan coverage 0.04
+  (model belum konvergen sehingga sangat sedikit yang yakin). BUKAN hasil penelitian.
+- Suhu dicari lewat grid log-spaced (bukan LBFGS) demi kestabilan pada data kecil.
+- `python -m pytest -q` -> 77 passed.
 
 ---
 
@@ -73,6 +82,7 @@ konfigurasi, seed, metrik, durasi.
 | Tanggal | Fase/Skrip | Model | Konfigurasi | Seed | Metrik | Durasi |
 |---------|------------|-------|-------------|------|--------|--------|
 <!-- APPEND_ROWS_HERE -->
+| 2026-10-13 | Fase 4 - kalibrasi (val) | smoke | [SANDBOX] temperature=0.3254 tau1=0.40 status=ok val=val.csv | 42 | [SANDBOX] ece_before=0.3026 \| ece_after=0.1826 \| coverage=0.0400 \| accepted_accuracy=1.0000 \| oos_false_accept=0.0000 | 0.00s |
 | 2026-10-13 | Fase 3 - fine-tuning | cahya/distilbert-base-indonesian | [SANDBOX] lr=3e-05 batch=16 epochs=1 max_len=64 class_weight=False train=train_aug.csv | 42 | [SANDBOX] accuracy=0.4400 \| f1_macro=0.3919 \| eval_loss=2.2171 \| best_metric=0.3919 | 44.34s |
 | 2026-10-13 | Fase 3 - fine-tuning | cahya/distilbert-base-indonesian | [SANDBOX] lr=3e-05 batch=16 epochs=1 max_len=64 class_weight=False train=train_aug.csv | 42 | [SANDBOX] accuracy=0.4400 \| f1_macro=0.3919 \| eval_loss=2.2171 \| best_metric=0.3919 | 45.43s |
 | 2026-10-13 | Fase 2 - baseline | TF-IDF + LinearSVC | [SANDBOX] ngram=(1,2) sublinear_tf=True C=1.0 max_iter=2000 train=train_aug.csv | 42 | [SANDBOX] accuracy=0.7200 \| f1_macro=0.6641 \| f1_weighted=0.6670 \| precision_macro=0.6424 \| recall_macro=0.7273 | 0.02s |
