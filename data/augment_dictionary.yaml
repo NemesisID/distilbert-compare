@@ -1,0 +1,53 @@
+# =============================================================================
+# augment_dictionary.yaml - kamus untuk augmentasi teks (HANYA data train)
+#
+# Setiap entri adalah SATU grup berisi istilah yang dianggap setara.
+# Saat augmentasi, sebuah kata dalam kalimat dapat diganti dengan istilah lain
+# dari grup yang sama (dipilih acak) -- sehingga muncul variasi gaya
+# sehari-hari tanpa mengubah makna/label.
+#
+# Silakan tambah/ubah grup sesuai kebutuhan. Semua istilah ditulis huruf kecil.
+# =============================================================================
+
+# Singkatan, typo umum, dan slang
+slang:
+  - [yang, yg]
+  - [tidak, tak, gak, ga, nggak]
+  - [bagaimana, gimana, gmn]
+  - [saya, aku, sy]
+  - [sudah, udah, dah]
+  - [kalau, kalo]
+  - [dengan, dgn]
+  - [untuk, utk]
+  - [saja, aja]
+  - [apakah, apa]
+  - [kapan, kpn]
+  - [berapa, brp]
+  - [nomor, no]
+  - [orang, org]
+  - [whatsapp, wa]
+  - [terima kasih, makasih, thanks]
+  - [mohon, tolong, please]
+  - [harus, wajib, mesti]
+  - [bisa, dapat, boleh]
+
+# Sinonim umum (bukan slang)
+sinonim:
+  - [mendaftar, daftar, registrasi]
+  - [dokumen, berkas, file]
+  - [persyaratan, syarat, ketentuan]
+  - [informasi, info]
+  - [pertanyaan, tanya]
+  - [jawaban, balasan]
+  - [jadwal, agenda, waktu]
+  - [kegiatan, acara, program]
+  - [kontak, hubungi, menghubungi]
+  - [admin, pengelola, petugas, narahubung]
+  - [biaya, dana, anggaran]
+  - [luaran, output, hasil]
+  - [revisi, perbaikan]
+  - [proposal, rencana usaha]
+  - [seleksi, penjaringan, kurasi]
+  - [peserta, tenant, calon]
+  - [bisnis, usaha]
+  - [unduh, download]

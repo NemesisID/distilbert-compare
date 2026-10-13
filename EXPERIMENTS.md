@@ -16,7 +16,8 @@ konfigurasi, seed, metrik, durasi.
 |------|--------|---------|
 | 0 - Persiapan | ✅ selesai | Python 3.12.10 + .venv + semua library; torch 2.14.1+cpu; CPU-only |
 | 1 - Kerangka & data | ✅ selesai | 22 tes pytest lulus (PyYAML asli) |
-| 2 - Augmentasi/leakage/baseline | ⏸️ belum dimulai | menunggu data asli |
+| 2 - Augmentasi/leakage/baseline | ✅ kode & uji sandbox | 39 tes lulus; angka sandbox ditandai [SANDBOX] |
+| 3 - Fine-tuning DistilBERT | ⏸️ belum dimulai | menunggu data asli |
 
 ### 2026-10-13 - Fase 0 (lingkungan)
 
@@ -36,8 +37,17 @@ konfigurasi, seed, metrik, durasi.
 - Deduplikasi: 0 baris dibuang.
 - Test set sandbox dikunci (read-only), SHA-256:
   `c4f5d2824e1debbb9b76b59aeccf88937f5f8331ecc5f5f38b59842318aead95`
-- `python -m pytest -q` -> 22 passed.
+- `python -m pytest -q` -> 22 passed (bertambah menjadi 39 setelah Fase 2).
 - Catatan: angka ini dari data sintetis, BUKAN hasil penelitian.
+
+### 2026-10-13 - Fase 2 (uji pipeline, SANDBOX)
+
+- Perintah: `python -m src.augment --sandbox`, `python -m src.leakage_check --sandbox`,
+  `python -m src.baseline --sandbox`.
+- Augmentasi **[SANDBOX]**: 115 kalimat asli -> 254 variasi (kamus 37 grup), total 369.
+- Leakage **[SANDBOX]**: 0 teks identik vs val, 0 duplikat internal -> BERSIH.
+- Baseline **[SANDBOX]**: accuracy=0.7200, f1_macro=0.6641 (val 25 baris).
+- Catatan: semua angka di atas dari data sintetis, BUKAN hasil penelitian.
 
 
 ---
@@ -48,3 +58,5 @@ konfigurasi, seed, metrik, durasi.
 
 | Tanggal | Fase/Skrip | Model | Konfigurasi | Seed | Metrik | Durasi |
 |---------|------------|-------|-------------|------|--------|--------|
+<!-- APPEND_ROWS_HERE -->
+| 2026-10-13 | Fase 2 - baseline | TF-IDF + LinearSVC | [SANDBOX] ngram=(1,2) sublinear_tf=True C=1.0 max_iter=2000 train=train_aug.csv | 42 | [SANDBOX] accuracy=0.7200 \| f1_macro=0.6641 \| f1_weighted=0.6670 \| precision_macro=0.6424 \| recall_macro=0.7273 | 0.02s |

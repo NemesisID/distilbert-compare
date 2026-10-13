@@ -65,6 +65,12 @@ def get_intents(config: Mapping | None = None) -> list[str]:
     return list(cfg["intents"])
 
 
+def get_primary_seed(config: Mapping | None = None) -> int:
+    """Ambil seed utama dari bagian ``project`` konfigurasi."""
+    cfg = config if config is not None else load_config()
+    return int(cfg["project"]["primary_seed"])
+
+
 def resolve_path(relative: str | Path) -> Path:
     """Ubah jalur relatif (dari config) menjadi absolut terhadap root repo."""
     p = Path(relative)

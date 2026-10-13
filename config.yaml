@@ -65,6 +65,32 @@ validation:
   max_chars: 300         # teks lebih panjang dari ini => peringatan
 
 # -----------------------------------------------------------------------------
+# Augmentasi (HANYA data train, setelah split)
+# -----------------------------------------------------------------------------
+augmentation:
+  dictionary: data/augment_dictionary.yaml
+  max_variants_per_sentence: 3
+  min_variants_per_sentence: 1
+  max_token_replacements: 2      # batasi perubahan per kalimat
+  review_fraction: 0.10          # 10% sampel untuk ditinjau manual
+
+# -----------------------------------------------------------------------------
+# Pemeriksaan kebocoran (leakage)
+# -----------------------------------------------------------------------------
+leakage:
+  cosine_threshold: 0.85         # pasangan di atas ini dilaporkan untuk ditinjau
+
+# -----------------------------------------------------------------------------
+# Baseline TF-IDF + LinearSVC
+# -----------------------------------------------------------------------------
+baseline:
+  ngram_max: 2
+  sublinear_tf: true
+  max_iter: 2000
+  C: 1.0
+
+
+# -----------------------------------------------------------------------------
 # Split data (dilakukan SEBELUM augmentasi)
 # -----------------------------------------------------------------------------
 split:

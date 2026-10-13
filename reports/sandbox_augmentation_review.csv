@@ -1,0 +1,26 @@
+text,intent,source
+dapat mendaftar kalau belum punya produk,syarat_pendaftaran,augmented
+apa ada file pdf yang bisa saya download,tanya_dokumen,augmented
+apakah aku bisa memperbaiki file pendaftaran,review_revisi_berkas,augmented
+di mana saya bisa menemukan berkas pengumuman,tanya_dokumen,augmented
+cara hubungi tim inkubator kalo ada kendala,kontak_admin,augmented
+ke mana aku menghubungi petugas,kontak_admin,augmented
+apakah dokumen dapat diunggah ulang,review_revisi_berkas,augmented
+gimana cara menghubungi petugas inkubator,kontak_admin,augmented
+apa ada program minggu depan,jadwal_kegiatan,augmented
+ketentuan mengikuti seleksi inkubator usaha,syarat_pendaftaran,augmented
+syarat kelulusan terkait output apakah,ketentuan_luaran,augmented
+dokumen apakah saja yang wajib diunggah ketika mendaftar,syarat_pendaftaran,augmented
+ketentuan administrasi untuk ikut program inkubasi apakah aja,syarat_pendaftaran,augmented
+apa aja syarat untuk mendaftar inkubator usaha,syarat_pendaftaran,augmented
+cara mengajukan pengeluaran acara,pengeluaran_keuangan,augmented
+gimana cara hubungi pengelola program,kontak_admin,augmented
+proses pengecekan ulang berkas tenant,review_revisi_berkas,augmented
+email narahubung inkubator apakah ya,kontak_admin,augmented
+apakah syarat usia pendaftar acara inkubasi,syarat_pendaftaran,augmented
+apakah ada dana yg diberikan ke peserta,pengeluaran_keuangan,augmented
+sip thanks,terima_kasih,augmented
+saya mau membaca file rencana usaha,tanya_dokumen,augmented
+agenda workshop kewirausahaan kpn,jadwal_kegiatan,augmented
+sampai kpn saya dapat memperbaiki berkas,review_revisi_berkas,augmented
+apakah perlu proposal utk registrasi inkubator,syarat_pendaftaran,augmented

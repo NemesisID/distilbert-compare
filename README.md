@@ -129,6 +129,12 @@ python -m src.validate_data --sandbox --out reports/sandbox_data_validation.md
 python -m src.split
 python -m src.split --sandbox --out-dir data/sandbox/processed
 
+# Fase 2: augmentasi (train), cek kebocoran, baseline
+python -m src.augment            # -> data/augmented/train_aug.csv
+python -m src.leakage_check      # -> reports/leakage_report.md (exit!=0 bila bocor)
+python -m src.baseline           # -> reports/baseline_val.md + EXPERIMENTS.md
+#   (tambahkan --sandbox untuk menguji alur memakai data sintetis)
+
 # Tes
 python -m pytest -q
 ```
@@ -163,7 +169,7 @@ python -m pytest -q
 |------|--------|
 | 0 – Persiapan | ✅ selesai (Python 3.12.10, torch 2.14.1+cpu, CPU-only) |
 | 1 – Kerangka & data | ✅ selesai (22 tes lulus) |
-| 2 – Augmentasi/leakage/baseline | belum dimulai |
+| 2 – Augmentasi/leakage/baseline | ✅ kode & uji sandbox (39 tes lulus) |
 | 3 – Fine-tuning DistilBERT | belum dimulai |
 | 4 – Kalibrasi & tau1 | belum dimulai |
 | 5 – Pipeline PDF | belum dimulai |

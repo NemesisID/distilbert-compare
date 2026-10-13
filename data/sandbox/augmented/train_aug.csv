@@ -1,0 +1,370 @@
+text,intent,source
+jadwal pendampingan usaha kapan ya,jadwal_kegiatan,synthetic
+ada nomor telepon admin tidak,kontak_admin,synthetic
+apakah ada file pdf yang bisa saya unduh,tanya_dokumen,synthetic
+apakah ada acara minggu depan,jadwal_kegiatan,synthetic
+bagaimana cara menanam jagung,out_of_scope,synthetic
+kapan pertemuan berikutnya,jadwal_kegiatan,synthetic
+email admin inkubator apa ya,kontak_admin,synthetic
+bagaimana cara membuat kue bolu,out_of_scope,synthetic
+saya mau membaca dokumen proposal,tanya_dokumen,synthetic
+apakah ada dana yang diberikan ke tenant,pengeluaran_keuangan,synthetic
+kapan jadwal kegiatan inkubator dimulai,jadwal_kegiatan,synthetic
+baik terima kasih infonya,terima_kasih,synthetic
+syarat mengikuti seleksi inkubator bisnis,syarat_pendaftaran,synthetic
+apakah perlu proposal untuk mendaftar inkubator,syarat_pendaftaran,synthetic
+selamat siang,sapaan,synthetic
+cara belajar bahasa korea cepat,out_of_scope,synthetic
+berapa harga tiket kereta jakarta surabaya,out_of_scope,synthetic
+setelah daftar proses selanjutnya apa,alur_seleksi,synthetic
+apa yang harus disetorkan di akhir program,ketentuan_luaran,synthetic
+terimakasih atas bantuannya,terima_kasih,synthetic
+apa penyebab gempa bumi,out_of_scope,synthetic
+apa luaran yang harus dihasilkan peserta,ketentuan_luaran,synthetic
+ada acara apa bulan depan,jadwal_kegiatan,synthetic
+apakah revisi berkas ada batas waktunya,review_revisi_berkas,synthetic
+proses seleksi berkas sampai pengumuman,alur_seleksi,synthetic
+saya ingin mengganti lampiran yang keliru,review_revisi_berkas,synthetic
+thanks infonya,terima_kasih,synthetic
+dokumen apa yang menjelaskan alur program,tanya_dokumen,synthetic
+tahapan seleksi inkubator bisnis itu seperti apa,alur_seleksi,synthetic
+dokumen apa yang harus saya siapkan saat pendaftaran,syarat_pendaftaran,synthetic
+bagaimana cara menghubungi pengelola program,kontak_admin,synthetic
+apa saja hasil yang harus saya capai,ketentuan_luaran,synthetic
+tolong tunjukkan dokumen yang relevan,tanya_dokumen,synthetic
+bagaimana proses review berkas saya,review_revisi_berkas,synthetic
+apakah saya bisa memperbaiki dokumen pendaftaran,review_revisi_berkas,synthetic
+kontak resmi inkubator bisnis upn,kontak_admin,synthetic
+kapan pelatihan berikutnya diadakan,jadwal_kegiatan,synthetic
+thanks ya kak,terima_kasih,synthetic
+ketentuan deliverable peserta inkubator,ketentuan_luaran,synthetic
+ketentuan penggunaan dana inkubator,pengeluaran_keuangan,synthetic
+bagaimana cara servis motor,out_of_scope,synthetic
+apa syarat usia pendaftar program inkubasi,syarat_pendaftaran,synthetic
+siapa yang bisa saya hubungi untuk info,kontak_admin,synthetic
+kapan jadwal evaluasi usaha,jadwal_kegiatan,synthetic
+aturan pembelian alat pakai dana program,pengeluaran_keuangan,synthetic
+target luaran program inkubator apa saja,ketentuan_luaran,synthetic
+terima kasih atas penjelasannya,terima_kasih,synthetic
+bagaimana menghubungi narahubung inkubator,kontak_admin,synthetic
+berapa lama proses seleksi berlangsung,alur_seleksi,synthetic
+malam min,sapaan,synthetic
+cara menghubungi tim inkubator kalau ada kendala,kontak_admin,synthetic
+jadwal workshop kewirausahaan kapan,jadwal_kegiatan,synthetic
+bagaimana cara saya tahu lulus seleksi atau tidak,alur_seleksi,synthetic
+alur penerimaan peserta inkubasi,alur_seleksi,synthetic
+bagaimana mekanisme reimbursement di inkubator,pengeluaran_keuangan,synthetic
+hallo admin,sapaan,synthetic
+makasih ya,terima_kasih,synthetic
+assalamualaikum,sapaan,synthetic
+apa kewajiban hasil akhir bagi peserta,ketentuan_luaran,synthetic
+hai,sapaan,synthetic
+cara mengajukan pengeluaran kegiatan,pengeluaran_keuangan,synthetic
+alur perbaikan berkas yang belum lengkap,review_revisi_berkas,synthetic
+apakah ada buku panduan program inkubasi,tanya_dokumen,synthetic
+agenda kegiatan inkubator minggu ini apa,jadwal_kegiatan,synthetic
+saya ingin melihat dokumen pendaftaran resmi,tanya_dokumen,synthetic
+bagaimana cara klaim biaya yang sudah keluar,pengeluaran_keuangan,synthetic
+sampai kapan saya boleh memperbaiki berkas,review_revisi_berkas,synthetic
+apa saja dokumen yang tersedia di website,tanya_dokumen,synthetic
+selamat pagi min,sapaan,synthetic
+bagaimana aturan pengeluaran dana kegiatan,pengeluaran_keuangan,synthetic
+form pendaftaran butuh lampiran apa saja,syarat_pendaftaran,synthetic
+tahap kurasi bisnis itu bagaimana,alur_seleksi,synthetic
+bagaimana cara menghubungi admin inkubator,kontak_admin,synthetic
+jadwal mentoring bulan ini kapan,jadwal_kegiatan,synthetic
+selamat sore,sapaan,synthetic
+laporan keuangan harus seperti apa,pengeluaran_keuangan,synthetic
+sudah cukup terima kasih,terima_kasih,synthetic
+siapa presiden indonesia sekarang,out_of_scope,synthetic
+output wajib selama mengikuti inkubasi apa,ketentuan_luaran,synthetic
+oke terima kasih,terima_kasih,synthetic
+sampurasun,sapaan,synthetic
+syarat kelulusan terkait luaran apa,ketentuan_luaran,synthetic
+saya mencari laporan tahunan inkubator,tanya_dokumen,synthetic
+rekomendasi film horor terbaik,out_of_scope,synthetic
+ke mana saya menghubungi pengelola,kontak_admin,synthetic
+boleh daftar kalau belum punya produk,syarat_pendaftaran,synthetic
+apa yang diuji saat seleksi,alur_seleksi,synthetic
+apakah ada dokumen kontrak kerja sama,tanya_dokumen,synthetic
+proses pengecekan ulang dokumen peserta,review_revisi_berkas,synthetic
+apakah berkas bisa diunggah ulang,review_revisi_berkas,synthetic
+bagaimana alur seleksi calon tenant,alur_seleksi,synthetic
+hai selamat pagi,sapaan,synthetic
+di mana saya dapat menemukan file pengumuman,tanya_dokumen,synthetic
+apakah luaran harus berupa produk jadi,ketentuan_luaran,synthetic
+apakah ada presentasi saat seleksi,alur_seleksi,synthetic
+di mana letak berkas panduan peserta,tanya_dokumen,synthetic
+apa saja syarat untuk mendaftar inkubator bisnis,syarat_pendaftaran,synthetic
+berkas apa saja yang wajib diunggah ketika mendaftar,syarat_pendaftaran,synthetic
+selamat malam,sapaan,synthetic
+mantap terima kasih,terima_kasih,synthetic
+saya harus menghasilkan apa selama program,ketentuan_luaran,synthetic
+syarat administrasi untuk ikut program inkubasi apa aja,syarat_pendaftaran,synthetic
+apa itu machine learning,out_of_scope,synthetic
+makasih min,terima_kasih,synthetic
+sip makasih,terima_kasih,synthetic
+apa saja rangkaian tes masuk inkubator,alur_seleksi,synthetic
+apakah semua pengeluaran perlu persetujuan,pengeluaran_keuangan,synthetic
+berapa batas pengeluaran yang diizinkan,pengeluaran_keuangan,synthetic
+apa ibukota jepang,out_of_scope,synthetic
+saya ingin bertanya langsung ke petugas,kontak_admin,synthetic
+cara mengajukan revisi proposal,review_revisi_berkas,synthetic
+apakah wajib punya laporan akhir,ketentuan_luaran,synthetic
+apa saja yang harus dilengkapi buat mendaftar,syarat_pendaftaran,synthetic
+bagaimana prosedur penggantian biaya transport,pengeluaran_keuangan,synthetic
+berkas saya ditolak apa yang harus dilakukan,review_revisi_berkas,synthetic
+agenda pendampingan usaha kpn ya,jadwal_kegiatan,augmented
+agenda pendampingan bisnis kapan ya,jadwal_kegiatan,augmented
+waktu pendampingan usaha kpn ya,jadwal_kegiatan,augmented
+ada false telepon pengelola tidak,kontak_admin,augmented
+ada false telepon admin nggak,kontak_admin,augmented
+ada false telepon narahubung tidak,kontak_admin,augmented
+apa ada file pdf yang bisa saya download,tanya_dokumen,augmented
+apakah ada file pdf yang boleh saya download,tanya_dokumen,augmented
+apakah ada file pdf yang dapat sy unduh,tanya_dokumen,augmented
+apa ada program minggu depan,jadwal_kegiatan,augmented
+apa ada kegiatan minggu depan,jadwal_kegiatan,augmented
+gmn cara menanam jagung,out_of_scope,augmented
+gimana cara menanam jagung,out_of_scope,augmented
+kpn pertemuan berikutnya,jadwal_kegiatan,augmented
+email pengelola inkubator apakah ya,kontak_admin,augmented
+email narahubung inkubator apakah ya,kontak_admin,augmented
+email petugas inkubator apakah ya,kontak_admin,augmented
+gimana cara membuat kue bolu,out_of_scope,augmented
+gmn cara membuat kue bolu,out_of_scope,augmented
+saya mau membaca file rencana usaha,tanya_dokumen,augmented
+sy mau membaca dokumen rencana usaha,tanya_dokumen,augmented
+aku mau membaca berkas proposal,tanya_dokumen,augmented
+apa ada anggaran yang diberikan ke tenant,pengeluaran_keuangan,augmented
+apa ada biaya yang diberikan ke tenant,pengeluaran_keuangan,augmented
+apakah ada dana yg diberikan ke peserta,pengeluaran_keuangan,augmented
+kpn jadwal acara inkubator dimulai,jadwal_kegiatan,augmented
+kpn agenda kegiatan inkubator dimulai,jadwal_kegiatan,augmented
+kapan agenda acara inkubator dimulai,jadwal_kegiatan,augmented
+baik thanks infonya,terima_kasih,augmented
+baik makasih infonya,terima_kasih,augmented
+ketentuan mengikuti seleksi inkubator usaha,syarat_pendaftaran,augmented
+persyaratan mengikuti kurasi inkubator bisnis,syarat_pendaftaran,augmented
+syarat mengikuti penjaringan inkubator usaha,syarat_pendaftaran,augmented
+apakah perlu proposal utk registrasi inkubator,syarat_pendaftaran,augmented
+apakah perlu rencana usaha utk mendaftar inkubator,syarat_pendaftaran,augmented
+apa perlu proposal untuk registrasi inkubator,syarat_pendaftaran,augmented
+brp harga tiket kereta jakarta surabaya,out_of_scope,augmented
+setelah mendaftar proses selanjutnya apakah,alur_seleksi,augmented
+setelah registrasi proses selanjutnya apakah,alur_seleksi,augmented
+apakah yg harus disetorkan di akhir program,ketentuan_luaran,augmented
+apa yg mesti disetorkan di akhir program,ketentuan_luaran,augmented
+apa yang wajib disetorkan di akhir kegiatan,ketentuan_luaran,augmented
+apakah penyebab gempa bumi,out_of_scope,augmented
+apa hasil yang wajib dihasilkan peserta,ketentuan_luaran,augmented
+apa output yg harus dihasilkan peserta,ketentuan_luaran,augmented
+apa luaran yg mesti dihasilkan peserta,ketentuan_luaran,augmented
+ada program apakah bulan depan,jadwal_kegiatan,augmented
+ada kegiatan apakah bulan depan,jadwal_kegiatan,augmented
+apakah perbaikan dokumen ada batas waktunya,review_revisi_berkas,augmented
+apakah perbaikan file ada batas waktunya,review_revisi_berkas,augmented
+apa revisi file ada batas waktunya,review_revisi_berkas,augmented
+proses penjaringan dokumen sampai pengumuman,alur_seleksi,augmented
+proses kurasi dokumen sampai pengumuman,alur_seleksi,augmented
+proses kurasi file sampai pengumuman,alur_seleksi,augmented
+aku ingin mengganti lampiran yg keliru,review_revisi_berkas,augmented
+sy ingin mengganti lampiran yg keliru,review_revisi_berkas,augmented
+makasih infonya,terima_kasih,augmented
+terima kasih infonya,terima_kasih,augmented
+berkas apakah yang menjelaskan alur program,tanya_dokumen,augmented
+file apakah yang menjelaskan alur program,tanya_dokumen,augmented
+berkas apa yg menjelaskan alur program,tanya_dokumen,augmented
+tahapan seleksi inkubator usaha itu seperti apakah,alur_seleksi,augmented
+tahapan penjaringan inkubator usaha itu seperti apa,alur_seleksi,augmented
+tahapan kurasi inkubator usaha itu seperti apa,alur_seleksi,augmented
+dokumen apakah yg harus saya siapkan saat pendaftaran,syarat_pendaftaran,augmented
+dokumen apakah yang harus sy siapkan saat pendaftaran,syarat_pendaftaran,augmented
+dokumen apakah yang wajib saya siapkan saat pendaftaran,syarat_pendaftaran,augmented
+gmn cara kontak pengelola program,kontak_admin,augmented
+gimana cara hubungi pengelola program,kontak_admin,augmented
+gimana cara menghubungi petugas program,kontak_admin,augmented
+apa aja hasil yang mesti saya capai,ketentuan_luaran,augmented
+apa saja hasil yg wajib saya capai,ketentuan_luaran,augmented
+apa saja output yang harus aku capai,ketentuan_luaran,augmented
+mohon tunjukkan file yang relevan,tanya_dokumen,augmented
+mohon tunjukkan dokumen yg relevan,tanya_dokumen,augmented
+tolong tunjukkan file yg relevan,tanya_dokumen,augmented
+gmn proses review dokumen saya,review_revisi_berkas,augmented
+gmn proses review file saya,review_revisi_berkas,augmented
+gimana proses review berkas sy,review_revisi_berkas,augmented
+apakah aku bisa memperbaiki file pendaftaran,review_revisi_berkas,augmented
+apa saya bisa memperbaiki file pendaftaran,review_revisi_berkas,augmented
+apakah sy bisa memperbaiki file pendaftaran,review_revisi_berkas,augmented
+menghubungi resmi inkubator usaha upn,kontak_admin,augmented
+hubungi resmi inkubator usaha upn,kontak_admin,augmented
+kpn pelatihan berikutnya diadakan,jadwal_kegiatan,augmented
+makasih ya kak,terima_kasih,augmented
+terima kasih ya kak,terima_kasih,augmented
+persyaratan deliverable tenant inkubator,ketentuan_luaran,augmented
+syarat deliverable calon inkubator,ketentuan_luaran,augmented
+persyaratan deliverable calon inkubator,ketentuan_luaran,augmented
+persyaratan penggunaan biaya inkubator,pengeluaran_keuangan,augmented
+syarat penggunaan anggaran inkubator,pengeluaran_keuangan,augmented
+persyaratan penggunaan anggaran inkubator,pengeluaran_keuangan,augmented
+gmn cara servis motor,out_of_scope,augmented
+gimana cara servis motor,out_of_scope,augmented
+apa persyaratan usia pendaftar acara inkubasi,syarat_pendaftaran,augmented
+apakah syarat usia pendaftar acara inkubasi,syarat_pendaftaran,augmented
+apa persyaratan usia pendaftar kegiatan inkubasi,syarat_pendaftaran,augmented
+siapa yang bisa saya menghubungi untuk informasi,kontak_admin,augmented
+siapa yang bisa saya menghubungi utk info,kontak_admin,augmented
+siapa yang bisa saya hubungi utk informasi,kontak_admin,augmented
+kpn waktu evaluasi usaha,jadwal_kegiatan,augmented
+kapan agenda evaluasi bisnis,jadwal_kegiatan,augmented
+kpn jadwal evaluasi bisnis,jadwal_kegiatan,augmented
+aturan pembelian alat pakai biaya acara,pengeluaran_keuangan,augmented
+aturan pembelian alat pakai anggaran acara,pengeluaran_keuangan,augmented
+aturan pembelian alat pakai anggaran kegiatan,pengeluaran_keuangan,augmented
+target luaran program inkubator apakah aja,ketentuan_luaran,augmented
+target hasil program inkubator apakah saja,ketentuan_luaran,augmented
+target luaran kegiatan inkubator apa aja,ketentuan_luaran,augmented
+makasih atas penjelasannya,terima_kasih,augmented
+thanks atas penjelasannya,terima_kasih,augmented
+gmn menghubungi petugas inkubator,kontak_admin,augmented
+bagaimana hubungi admin inkubator,kontak_admin,augmented
+bagaimana kontak petugas inkubator,kontak_admin,augmented
+brp lama proses kurasi berlangsung,alur_seleksi,augmented
+brp lama proses penjaringan berlangsung,alur_seleksi,augmented
+cara hubungi tim inkubator kalo ada kendala,kontak_admin,augmented
+cara kontak tim inkubator kalo ada kendala,kontak_admin,augmented
+waktu workshop kewirausahaan kpn,jadwal_kegiatan,augmented
+agenda workshop kewirausahaan kpn,jadwal_kegiatan,augmented
+gimana cara saya tahu lulus kurasi atau tidak,alur_seleksi,augmented
+gmn cara saya tahu lulus seleksi atau nggak,alur_seleksi,augmented
+bagaimana cara aku tahu lulus kurasi atau tidak,alur_seleksi,augmented
+alur penerimaan tenant inkubasi,alur_seleksi,augmented
+alur penerimaan calon inkubasi,alur_seleksi,augmented
+gimana mekanisme reimbursement di inkubator,pengeluaran_keuangan,augmented
+gmn mekanisme reimbursement di inkubator,pengeluaran_keuangan,augmented
+hallo pengelola,sapaan,augmented
+hallo petugas,sapaan,augmented
+hallo narahubung,sapaan,augmented
+terima kasih ya,terima_kasih,augmented
+thanks ya,terima_kasih,augmented
+apakah kewajiban hasil akhir bagi tenant,ketentuan_luaran,augmented
+apa kewajiban output akhir bagi tenant,ketentuan_luaran,augmented
+apakah kewajiban luaran akhir bagi peserta,ketentuan_luaran,augmented
+cara mengajukan pengeluaran acara,pengeluaran_keuangan,augmented
+cara mengajukan pengeluaran program,pengeluaran_keuangan,augmented
+alur revisi dokumen yang belum lengkap,review_revisi_berkas,augmented
+alur perbaikan dokumen yg belum lengkap,review_revisi_berkas,augmented
+alur revisi file yang belum lengkap,review_revisi_berkas,augmented
+apa ada buku panduan acara inkubasi,tanya_dokumen,augmented
+apa ada buku panduan kegiatan inkubasi,tanya_dokumen,augmented
+agenda program inkubator minggu ini apakah,jadwal_kegiatan,augmented
+waktu acara inkubator minggu ini apa,jadwal_kegiatan,augmented
+agenda acara inkubator minggu ini apakah,jadwal_kegiatan,augmented
+sy ingin melihat file pendaftaran resmi,tanya_dokumen,augmented
+aku ingin melihat file pendaftaran resmi,tanya_dokumen,augmented
+sy ingin melihat berkas pendaftaran resmi,tanya_dokumen,augmented
+gimana cara klaim biaya yg sudah keluar,pengeluaran_keuangan,augmented
+gimana cara klaim anggaran yang sudah keluar,pengeluaran_keuangan,augmented
+gimana cara klaim biaya yang udah keluar,pengeluaran_keuangan,augmented
+sampai kpn saya dapat memperbaiki berkas,review_revisi_berkas,augmented
+sampai kpn saya boleh memperbaiki file,review_revisi_berkas,augmented
+sampai kapan sy boleh memperbaiki dokumen,review_revisi_berkas,augmented
+apakah saja dokumen yg tersedia di website,tanya_dokumen,augmented
+apa aja file yang tersedia di website,tanya_dokumen,augmented
+apakah saja file yang tersedia di website,tanya_dokumen,augmented
+gmn aturan pengeluaran dana acara,pengeluaran_keuangan,augmented
+bagaimana aturan pengeluaran anggaran acara,pengeluaran_keuangan,augmented
+bagaimana aturan pengeluaran biaya program,pengeluaran_keuangan,augmented
+form pendaftaran butuh lampiran apakah aja,syarat_pendaftaran,augmented
+tahap kurasi usaha itu gimana,alur_seleksi,augmented
+tahap kurasi usaha itu gmn,alur_seleksi,augmented
+tahap penjaringan usaha itu bagaimana,alur_seleksi,augmented
+gmn cara hubungi admin inkubator,kontak_admin,augmented
+bagaimana cara kontak narahubung inkubator,kontak_admin,augmented
+gimana cara menghubungi petugas inkubator,kontak_admin,augmented
+agenda mentoring bulan ini kpn,jadwal_kegiatan,augmented
+waktu mentoring bulan ini kpn,jadwal_kegiatan,augmented
+laporan keuangan mesti seperti apakah,pengeluaran_keuangan,augmented
+laporan keuangan wajib seperti apakah,pengeluaran_keuangan,augmented
+dah cukup thanks,terima_kasih,augmented
+dah cukup makasih,terima_kasih,augmented
+udah cukup makasih,terima_kasih,augmented
+output harus selama mengikuti inkubasi apakah,ketentuan_luaran,augmented
+hasil mesti selama mengikuti inkubasi apa,ketentuan_luaran,augmented
+luaran harus selama mengikuti inkubasi apa,ketentuan_luaran,augmented
+oke thanks,terima_kasih,augmented
+oke makasih,terima_kasih,augmented
+syarat kelulusan terkait output apakah,ketentuan_luaran,augmented
+persyaratan kelulusan terkait luaran apakah,ketentuan_luaran,augmented
+ketentuan kelulusan terkait output apa,ketentuan_luaran,augmented
+sy mencari laporan tahunan inkubator,tanya_dokumen,augmented
+aku mencari laporan tahunan inkubator,tanya_dokumen,augmented
+ke mana aku menghubungi petugas,kontak_admin,augmented
+ke mana aku kontak pengelola,kontak_admin,augmented
+ke mana sy hubungi pengelola,kontak_admin,augmented
+bisa registrasi kalau belum punya produk,syarat_pendaftaran,augmented
+bisa daftar kalo belum punya produk,syarat_pendaftaran,augmented
+dapat mendaftar kalau belum punya produk,syarat_pendaftaran,augmented
+apa yg diuji saat kurasi,alur_seleksi,augmented
+apakah yg diuji saat seleksi,alur_seleksi,augmented
+apakah yang diuji saat penjaringan,alur_seleksi,augmented
+apa ada file kontrak kerja sama,tanya_dokumen,augmented
+apa ada berkas kontrak kerja sama,tanya_dokumen,augmented
+proses pengecekan ulang berkas calon,review_revisi_berkas,augmented
+proses pengecekan ulang file calon,review_revisi_berkas,augmented
+proses pengecekan ulang berkas tenant,review_revisi_berkas,augmented
+apa berkas dapat diunggah ulang,review_revisi_berkas,augmented
+apa file bisa diunggah ulang,review_revisi_berkas,augmented
+apakah dokumen dapat diunggah ulang,review_revisi_berkas,augmented
+gimana alur seleksi calon calon,alur_seleksi,augmented
+gmn alur penjaringan calon tenant,alur_seleksi,augmented
+gmn alur seleksi calon calon,alur_seleksi,augmented
+di mana saya bisa menemukan berkas pengumuman,tanya_dokumen,augmented
+di mana aku dapat menemukan dokumen pengumuman,tanya_dokumen,augmented
+di mana aku boleh menemukan file pengumuman,tanya_dokumen,augmented
+apa output harus berupa produk jadi,ketentuan_luaran,augmented
+apakah output mesti berupa produk jadi,ketentuan_luaran,augmented
+apa luaran mesti berupa produk jadi,ketentuan_luaran,augmented
+apa ada presentasi saat kurasi,alur_seleksi,augmented
+apa ada presentasi saat penjaringan,alur_seleksi,augmented
+di mana letak file panduan tenant,tanya_dokumen,augmented
+di mana letak file panduan calon,tanya_dokumen,augmented
+di mana letak dokumen panduan tenant,tanya_dokumen,augmented
+apa aja syarat untuk mendaftar inkubator usaha,syarat_pendaftaran,augmented
+apa aja syarat utk mendaftar inkubator bisnis,syarat_pendaftaran,augmented
+apakah saja syarat utk mendaftar inkubator bisnis,syarat_pendaftaran,augmented
+berkas apakah aja yang wajib diunggah ketika mendaftar,syarat_pendaftaran,augmented
+dokumen apakah saja yang wajib diunggah ketika mendaftar,syarat_pendaftaran,augmented
+dokumen apa saja yg wajib diunggah ketika mendaftar,syarat_pendaftaran,augmented
+mantap makasih,terima_kasih,augmented
+mantap thanks,terima_kasih,augmented
+sy mesti menghasilkan apa selama program,ketentuan_luaran,augmented
+saya harus menghasilkan apakah selama acara,ketentuan_luaran,augmented
+aku wajib menghasilkan apa selama program,ketentuan_luaran,augmented
+syarat administrasi untuk ikut acara inkubasi apakah aja,syarat_pendaftaran,augmented
+ketentuan administrasi untuk ikut program inkubasi apakah aja,syarat_pendaftaran,augmented
+persyaratan administrasi untuk ikut kegiatan inkubasi apa aja,syarat_pendaftaran,augmented
+apakah itu machine learning,out_of_scope,augmented
+terima kasih min,terima_kasih,augmented
+thanks min,terima_kasih,augmented
+sip thanks,terima_kasih,augmented
+sip terima kasih,terima_kasih,augmented
+apakah aja rangkaian tes masuk inkubator,alur_seleksi,augmented
+apa semua pengeluaran perlu persetujuan,pengeluaran_keuangan,augmented
+brp batas pengeluaran yg diizinkan,pengeluaran_keuangan,augmented
+apakah ibukota jepang,out_of_scope,augmented
+sy ingin bertanya langsung ke pengelola,kontak_admin,augmented
+aku ingin bertanya langsung ke narahubung,kontak_admin,augmented
+sy ingin bertanya langsung ke narahubung,kontak_admin,augmented
+cara mengajukan perbaikan rencana usaha,review_revisi_berkas,augmented
+apa mesti punya laporan akhir,ketentuan_luaran,augmented
+apa harus punya laporan akhir,ketentuan_luaran,augmented
+apa saja yg mesti dilengkapi buat mendaftar,syarat_pendaftaran,augmented
+apakah saja yang harus dilengkapi buat registrasi,syarat_pendaftaran,augmented
+apakah saja yang harus dilengkapi buat daftar,syarat_pendaftaran,augmented
+gimana prosedur penggantian dana transport,pengeluaran_keuangan,augmented
+gmn prosedur penggantian anggaran transport,pengeluaran_keuangan,augmented
+gimana prosedur penggantian anggaran transport,pengeluaran_keuangan,augmented
+file sy ditolak apa yang harus dilakukan,review_revisi_berkas,augmented
+berkas saya ditolak apakah yang mesti dilakukan,review_revisi_berkas,augmented
+berkas sy ditolak apa yang wajib dilakukan,review_revisi_berkas,augmented
