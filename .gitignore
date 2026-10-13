@@ -1,0 +1,46 @@
+# =============================================================================
+# .gitignore - jangan commit rahasia / data rahasia / artefak besar
+# =============================================================================
+
+# Rahasia
+.env
+
+# Virtual environment
+.venv/
+venv/
+env/
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Data rahasia / terkunci (jangan di-commit)
+data/raw/*
+!data/raw/*.template.csv
+!data/raw/.gitkeep
+
+data/pdf/*
+!data/pdf/.gitkeep
+
+data/processed/test.csv
+data/e2e/mixed_test.csv
+
+# Artefak model & vektor (besar / dapat dibuat ulang)
+models/
+vectorstore/
+
+# Log
+logs/
+*.log
+
+# OS / editor
+Thumbs.db
+desktop.ini
+.vscode/
+.idea/
+
+# Catatan: reports/ dan EXPERIMENTS.md SENGAJA di-track agar hasil terekam.

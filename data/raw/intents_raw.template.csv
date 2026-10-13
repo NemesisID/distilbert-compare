@@ -1,0 +1,4 @@
+text,intent,source
+tulis pertanyaan pengguna di sini,syarat_pendaftaran,asli
+tulis pertanyaan lain di sini,alur_seleksi,asli
+satu pertanyaan lagi,out_of_scope,asli

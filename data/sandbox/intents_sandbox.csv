@@ -1,0 +1,166 @@
+text,intent,source
+apa saja syarat untuk mendaftar inkubator bisnis,syarat_pendaftaran,synthetic
+dokumen apa yang harus saya siapkan saat pendaftaran,syarat_pendaftaran,synthetic
+saya mau gabung apa persyaratan pendaftarannya,syarat_pendaftaran,synthetic
+syarat administrasi untuk ikut program inkubasi apa aja,syarat_pendaftaran,synthetic
+apakah harus punya badan usaha untuk daftar,syarat_pendaftaran,synthetic
+berkas apa saja yang wajib diunggah ketika mendaftar,syarat_pendaftaran,synthetic
+ketentuan peserta baru inkubator bisnis apa ya,syarat_pendaftaran,synthetic
+saya lulusan sma boleh ikut daftar inkubator,syarat_pendaftaran,synthetic
+apa syarat usia pendaftar program inkubasi,syarat_pendaftaran,synthetic
+apakah perlu proposal untuk mendaftar inkubator,syarat_pendaftaran,synthetic
+form pendaftaran butuh lampiran apa saja,syarat_pendaftaran,synthetic
+apa saja yang harus dilengkapi buat mendaftar,syarat_pendaftaran,synthetic
+boleh daftar kalau belum punya produk,syarat_pendaftaran,synthetic
+syarat mengikuti seleksi inkubator bisnis,syarat_pendaftaran,synthetic
+apa saja berkas pendukung pendaftaran tenant baru,syarat_pendaftaran,synthetic
+bagaimana alur seleksi calon tenant,alur_seleksi,synthetic
+tahapan seleksi inkubator bisnis itu seperti apa,alur_seleksi,synthetic
+setelah daftar proses selanjutnya apa,alur_seleksi,synthetic
+bagaimana proses penilaian peserta baru,alur_seleksi,synthetic
+urutan tahapan seleksi dari awal sampai akhir,alur_seleksi,synthetic
+apa yang diuji saat seleksi,alur_seleksi,synthetic
+berapa lama proses seleksi berlangsung,alur_seleksi,synthetic
+apakah ada wawancara dalam tahap seleksi,alur_seleksi,synthetic
+alur penerimaan peserta inkubasi,alur_seleksi,synthetic
+tahap kurasi bisnis itu bagaimana,alur_seleksi,synthetic
+apakah ada presentasi saat seleksi,alur_seleksi,synthetic
+bagaimana cara saya tahu lulus seleksi atau tidak,alur_seleksi,synthetic
+apa saja rangkaian tes masuk inkubator,alur_seleksi,synthetic
+proses seleksi berkas sampai pengumuman,alur_seleksi,synthetic
+mekanisme pemilihan tenant baru,alur_seleksi,synthetic
+kapan jadwal kegiatan inkubator dimulai,jadwal_kegiatan,synthetic
+jadwal mentoring bulan ini kapan,jadwal_kegiatan,synthetic
+kapan pelatihan berikutnya diadakan,jadwal_kegiatan,synthetic
+agenda kegiatan inkubator minggu ini apa,jadwal_kegiatan,synthetic
+jadwal pendampingan usaha kapan ya,jadwal_kegiatan,synthetic
+kapan jadwal bootcamp inkubator,jadwal_kegiatan,synthetic
+ada acara apa bulan depan,jadwal_kegiatan,synthetic
+jadwal workshop kewirausahaan kapan,jadwal_kegiatan,synthetic
+kapan sesi konsultasi bisnis dibuka,jadwal_kegiatan,synthetic
+jadwal kegiatan rutin tenant,jadwal_kegiatan,synthetic
+kapan pertemuan berikutnya,jadwal_kegiatan,synthetic
+jadwal pelatihan digital marketing kapan,jadwal_kegiatan,synthetic
+apakah ada acara minggu depan,jadwal_kegiatan,synthetic
+kapan jadwal evaluasi usaha,jadwal_kegiatan,synthetic
+waktu kegiatan inkubator biasanya jam berapa,jadwal_kegiatan,synthetic
+apa luaran yang harus dihasilkan peserta,ketentuan_luaran,synthetic
+output wajib selama mengikuti inkubasi apa,ketentuan_luaran,synthetic
+target luaran program inkubator apa saja,ketentuan_luaran,synthetic
+apa saja hasil yang harus saya capai,ketentuan_luaran,synthetic
+ketentuan output akhir peserta inkubasi,ketentuan_luaran,synthetic
+apakah wajib punya laporan akhir,ketentuan_luaran,synthetic
+luaran minimal yang harus dipenuhi tenant,ketentuan_luaran,synthetic
+apa yang harus disetorkan di akhir program,ketentuan_luaran,synthetic
+hasil karya apa yang wajib dihasilkan,ketentuan_luaran,synthetic
+ketentuan deliverable peserta inkubator,ketentuan_luaran,synthetic
+apakah luaran harus berupa produk jadi,ketentuan_luaran,synthetic
+apa kewajiban hasil akhir bagi peserta,ketentuan_luaran,synthetic
+saya harus menghasilkan apa selama program,ketentuan_luaran,synthetic
+syarat kelulusan terkait luaran apa,ketentuan_luaran,synthetic
+bentuk luaran yang diterima inkubator,ketentuan_luaran,synthetic
+bagaimana aturan pengeluaran dana kegiatan,pengeluaran_keuangan,synthetic
+apakah biaya operasional bisa diganti,pengeluaran_keuangan,synthetic
+bagaimana cara klaim biaya yang sudah keluar,pengeluaran_keuangan,synthetic
+ketentuan penggunaan dana inkubator,pengeluaran_keuangan,synthetic
+apakah pengeluaran harus pakai nota,pengeluaran_keuangan,synthetic
+bagaimana mekanisme reimbursement di inkubator,pengeluaran_keuangan,synthetic
+laporan keuangan harus seperti apa,pengeluaran_keuangan,synthetic
+apakah ada dana yang diberikan ke tenant,pengeluaran_keuangan,synthetic
+aturan pembelian alat pakai dana program,pengeluaran_keuangan,synthetic
+berapa batas pengeluaran yang diizinkan,pengeluaran_keuangan,synthetic
+bagaimana prosedur penggantian biaya transport,pengeluaran_keuangan,synthetic
+apakah semua pengeluaran perlu persetujuan,pengeluaran_keuangan,synthetic
+ketentuan laporan penggunaan anggaran,pengeluaran_keuangan,synthetic
+cara mengajukan pengeluaran kegiatan,pengeluaran_keuangan,synthetic
+apakah pembelian tanpa nota bisa direimburse,pengeluaran_keuangan,synthetic
+bagaimana cara revisi berkas yang salah,review_revisi_berkas,synthetic
+apakah saya bisa memperbaiki dokumen pendaftaran,review_revisi_berkas,synthetic
+bagaimana proses review berkas saya,review_revisi_berkas,synthetic
+berkas saya ditolak apa yang harus dilakukan,review_revisi_berkas,synthetic
+cara mengajukan revisi proposal,review_revisi_berkas,synthetic
+sampai kapan saya boleh memperbaiki berkas,review_revisi_berkas,synthetic
+bagaimana kalau ada kesalahan isi formulir,review_revisi_berkas,synthetic
+apakah revisi berkas ada batas waktunya,review_revisi_berkas,synthetic
+bagaimana status peninjauan dokumen saya,review_revisi_berkas,synthetic
+saya ingin mengganti lampiran yang keliru,review_revisi_berkas,synthetic
+alur perbaikan berkas yang belum lengkap,review_revisi_berkas,synthetic
+apakah berkas bisa diunggah ulang,review_revisi_berkas,synthetic
+bagaimana cara tahu berkas saya sudah benar,review_revisi_berkas,synthetic
+proses pengecekan ulang dokumen peserta,review_revisi_berkas,synthetic
+apa yang harus dilakukan jika berkas kurang,review_revisi_berkas,synthetic
+bagaimana cara menghubungi admin inkubator,kontak_admin,synthetic
+nomor kontak pengelola inkubator berapa,kontak_admin,synthetic
+email admin inkubator apa ya,kontak_admin,synthetic
+saya mau tanya ke admin kontaknya di mana,kontak_admin,synthetic
+bagaimana cara menghubungi pengelola program,kontak_admin,synthetic
+ada nomor telepon admin tidak,kontak_admin,synthetic
+kontak bagian pendaftaran inkubator,kontak_admin,synthetic
+saya ingin bertanya langsung ke petugas,kontak_admin,synthetic
+bagaimana menghubungi narahubung inkubator,kontak_admin,synthetic
+kontak resmi inkubator bisnis upn,kontak_admin,synthetic
+siapa yang bisa saya hubungi untuk info,kontak_admin,synthetic
+alamat email untuk pertanyaan pendaftaran,kontak_admin,synthetic
+nomor whatsapp admin inkubator,kontak_admin,synthetic
+cara menghubungi tim inkubator kalau ada kendala,kontak_admin,synthetic
+ke mana saya menghubungi pengelola,kontak_admin,synthetic
+halo,sapaan,synthetic
+hai selamat pagi,sapaan,synthetic
+selamat siang,sapaan,synthetic
+assalamualaikum,sapaan,synthetic
+pagi kak,sapaan,synthetic
+hallo admin,sapaan,synthetic
+hai apa kabar,sapaan,synthetic
+selamat sore,sapaan,synthetic
+malam min,sapaan,synthetic
+permisi,sapaan,synthetic
+halo saya mau tanya,sapaan,synthetic
+hai,sapaan,synthetic
+selamat malam,sapaan,synthetic
+selamat pagi min,sapaan,synthetic
+sampurasun,sapaan,synthetic
+terima kasih,terima_kasih,synthetic
+makasih ya,terima_kasih,synthetic
+thanks infonya,terima_kasih,synthetic
+terima kasih banyak,terima_kasih,synthetic
+oke terima kasih,terima_kasih,synthetic
+makasih min,terima_kasih,synthetic
+thank you,terima_kasih,synthetic
+terimakasih atas bantuannya,terima_kasih,synthetic
+sip makasih,terima_kasih,synthetic
+baik terima kasih infonya,terima_kasih,synthetic
+mantap terima kasih,terima_kasih,synthetic
+thanks ya kak,terima_kasih,synthetic
+terima kasih atas penjelasannya,terima_kasih,synthetic
+sudah cukup terima kasih,terima_kasih,synthetic
+oke makasih banyak,terima_kasih,synthetic
+di mana saya bisa melihat dokumen panduan,tanya_dokumen,synthetic
+apakah ada file pdf yang bisa saya unduh,tanya_dokumen,synthetic
+saya butuh dokumen persyaratan resmi,tanya_dokumen,synthetic
+apa saja dokumen yang tersedia di website,tanya_dokumen,synthetic
+bagaimana cara mengakses dokumen mitra,tanya_dokumen,synthetic
+apakah ada buku panduan program inkubasi,tanya_dokumen,synthetic
+saya mau membaca dokumen proposal,tanya_dokumen,synthetic
+di mana letak berkas panduan peserta,tanya_dokumen,synthetic
+tolong tunjukkan dokumen yang relevan,tanya_dokumen,synthetic
+apakah dokumen bisa diunduh dalam bentuk pdf,tanya_dokumen,synthetic
+saya mencari laporan tahunan inkubator,tanya_dokumen,synthetic
+dokumen apa yang menjelaskan alur program,tanya_dokumen,synthetic
+apakah ada dokumen kontrak kerja sama,tanya_dokumen,synthetic
+di mana saya dapat menemukan file pengumuman,tanya_dokumen,synthetic
+saya ingin melihat dokumen pendaftaran resmi,tanya_dokumen,synthetic
+bagaimana cara membuat kue bolu,out_of_scope,synthetic
+siapa presiden indonesia sekarang,out_of_scope,synthetic
+apa itu machine learning,out_of_scope,synthetic
+resep nasi goreng enak,out_of_scope,synthetic
+berapa harga tiket kereta jakarta surabaya,out_of_scope,synthetic
+tolong buatkan puisi tentang hujan,out_of_scope,synthetic
+bagaimana cara servis motor,out_of_scope,synthetic
+apa ibukota jepang,out_of_scope,synthetic
+cara belajar bahasa korea cepat,out_of_scope,synthetic
+siapa pemenang piala dunia,out_of_scope,synthetic
+bagaimana cara menanam jagung,out_of_scope,synthetic
+apa penyebab gempa bumi,out_of_scope,synthetic
+rekomendasi film horor terbaik,out_of_scope,synthetic
+cara membuat website toko online,out_of_scope,synthetic
+berapa tinggi gunung semeru,out_of_scope,synthetic

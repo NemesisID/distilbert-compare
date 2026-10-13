@@ -1,0 +1,26 @@
+text,intent,source
+apakah ada wawancara dalam tahap seleksi,alur_seleksi,synthetic
+hasil karya apa yang wajib dihasilkan,ketentuan_luaran,synthetic
+saya lulusan sma boleh ikut daftar inkubator,syarat_pendaftaran,synthetic
+apa yang harus dilakukan jika berkas kurang,review_revisi_berkas,synthetic
+apakah biaya operasional bisa diganti,pengeluaran_keuangan,synthetic
+alamat email untuk pertanyaan pendaftaran,kontak_admin,synthetic
+saya butuh dokumen persyaratan resmi,tanya_dokumen,synthetic
+siapa pemenang piala dunia,out_of_scope,synthetic
+ketentuan laporan penggunaan anggaran,pengeluaran_keuangan,synthetic
+saya mau tanya ke admin kontaknya di mana,kontak_admin,synthetic
+bagaimana cara revisi berkas yang salah,review_revisi_berkas,synthetic
+terima kasih banyak,terima_kasih,synthetic
+permisi,sapaan,synthetic
+kapan sesi konsultasi bisnis dibuka,jadwal_kegiatan,synthetic
+bagaimana proses penilaian peserta baru,alur_seleksi,synthetic
+halo saya mau tanya,sapaan,synthetic
+nomor kontak pengelola inkubator berapa,kontak_admin,synthetic
+bentuk luaran yang diterima inkubator,ketentuan_luaran,synthetic
+terima kasih,terima_kasih,synthetic
+jadwal kegiatan rutin tenant,jadwal_kegiatan,synthetic
+jadwal pelatihan digital marketing kapan,jadwal_kegiatan,synthetic
+saya mau gabung apa persyaratan pendaftarannya,syarat_pendaftaran,synthetic
+di mana saya bisa melihat dokumen panduan,tanya_dokumen,synthetic
+berapa tinggi gunung semeru,out_of_scope,synthetic
+ketentuan peserta baru inkubator bisnis apa ya,syarat_pendaftaran,synthetic

@@ -1,0 +1,132 @@
+# =============================================================================
+# config.yaml - Konfigurasi pusat proyek chatbot-intent
+# Semua angka "ajaib" harus berada di sini, bukan di dalam kode.
+# =============================================================================
+
+project:
+  name: chatbot-intent
+  description: >-
+    Modul chatbot pengganti FAQ berbasis fine-tuning DistilBERT (intent
+    classification) dan retrieval dokumen PDF mitra untuk website Sistem
+    Informasi Inkubator Bisnis UPN "Veteran" Jawa Timur.
+  seeds: [42, 43, 44]      # seed wajib untuk reproducible
+  primary_seed: 42
+
+# -----------------------------------------------------------------------------
+# Jalur (relatif terhadap akar repo). Kode harus memakai pathlib.Path.
+# -----------------------------------------------------------------------------
+paths:
+  data_dir: data
+  raw: data/raw/intents_raw.csv
+  sandbox: data/sandbox/intents_sandbox.csv
+  processed_dir: data/processed
+  augmented_dir: data/augmented
+  pdf_dir: data/pdf
+  rag_eval_dir: data/rag_eval
+  e2e_dir: data/e2e
+  reports_dir: reports
+  models_dir: models
+  vectorstore_dir: vectorstore
+  logs_dir: logs
+
+# -----------------------------------------------------------------------------
+# Intent (DRAF - menunggu konfirmasi pemilik proyek).
+# -----------------------------------------------------------------------------
+intents:
+  - syarat_pendaftaran
+  - alur_seleksi
+  - jadwal_kegiatan
+  - ketentuan_luaran
+  - pengeluaran_keuangan
+  - review_revisi_berkas
+  - kontak_admin
+  - sapaan
+  - terima_kasih
+  - tanya_dokumen
+  - out_of_scope
+
+# Intent yang perlu perlakuan khusus di routing.
+routing:
+  doc_intent: tanya_dokumen       # intent yang boleh memicu pencarian PDF
+  oos_intent: out_of_scope        # dianggap "di luar cakupan FAQ"
+
+# Jumlah minimum contoh per intent. Nilai default + override khusus.
+# Di bawah ini akan menjadi PERINGATAN (warning), bukan error.
+intent_min_counts:
+  default: 20
+  tanya_dokumen: 40
+  out_of_scope: 100
+
+# -----------------------------------------------------------------------------
+# Validasi data
+# -----------------------------------------------------------------------------
+validation:
+  min_chars: 3           # teks lebih pendek dari ini => peringatan
+  max_chars: 300         # teks lebih panjang dari ini => peringatan
+
+# -----------------------------------------------------------------------------
+# Split data (dilakukan SEBELUM augmentasi)
+# -----------------------------------------------------------------------------
+split:
+  train: 0.70
+  val: 0.15
+  test: 0.15
+  random_state: 42       # seed split dikunci di 42
+
+# -----------------------------------------------------------------------------
+# Model (LINGKUP KERAS - jangan ubah tanpa izin)
+# -----------------------------------------------------------------------------
+models:
+  primary: cahya/distilbert-base-indonesian          # uncased
+  comparison: distilbert/distilbert-base-multilingual-cased  # cased
+  embedding: sentence-transformers/distiluse-base-multilingual-cased-v2
+
+# -----------------------------------------------------------------------------
+# Pelatihan DistilBERT
+# -----------------------------------------------------------------------------
+training:
+  max_length: 64
+  weight_decay: 0.01
+  warmup_ratio: 0.1
+  early_stopping_patience: 3
+  metric_for_best_model: f1_macro
+  epochs_max: 10
+  learning_rates: [0.00002, 0.00003, 0.00005]   # 2e-5, 3e-5, 5e-5
+  batch_sizes: [16, 32]
+  dataloader_num_workers: 0     # WAJIB 0 di Windows (spawn)
+  torch_num_threads: 4          # kuota thread di server lab bersama
+  device_preference: auto       # auto | cpu | cuda
+
+# -----------------------------------------------------------------------------
+# Kalibrasi (temperature scaling) dan ambang tau1
+# -----------------------------------------------------------------------------
+calibration:
+  tau1_min: 0.40
+  tau1_max: 0.95
+  tau1_step: 0.05
+  # Kriteria pemilihan tau1 (dapat diubah pemilik proyek):
+  target_accepted_accuracy_min: 0.95
+  target_oos_false_accept_max: 0.05
+
+# -----------------------------------------------------------------------------
+# Pipeline PDF / retrieval
+# -----------------------------------------------------------------------------
+rag:
+  chunk_words: 90
+  chunk_overlap: 20
+  embedding_max_seq_length: 128
+  top_k: 3
+  rrf_k: 60
+  rrf_pool: 20
+  tau2_min: 0.30
+  tau2_max: 0.90
+  tau2_step: 0.05
+  tokenizer: "lowercase_space"   # tokenisasi BM25: huruf kecil + spasi
+
+# -----------------------------------------------------------------------------
+# API
+# -----------------------------------------------------------------------------
+api:
+  host: 127.0.0.1
+  port: 8000
+  max_input_chars: 500

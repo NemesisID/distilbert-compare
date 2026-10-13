@@ -1,0 +1,4 @@
+question,expected_route
+contoh pertanyaan yang harus dijawab lewat FAQ,faq
+contoh pertanyaan yang harus dijawab lewat dokumen,dokumen
+contoh pertanyaan yang harus jatuh ke fallback,fallback

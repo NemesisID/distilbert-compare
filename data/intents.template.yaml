@@ -1,0 +1,53 @@
+# =============================================================================
+# intents.template.yaml - SALIN menjadi data/intents.yaml lalu isi.
+# Jawaban baku dikelola di database (lihat scripts/seed_responses.py),
+# bukan disimpan di dalam model.
+# =============================================================================
+# Struktur tiap entri:
+#   - intent     : nama intent (harus sama dengan daftar di config.yaml)
+#     deskripsi  : penjelasan singkat intent
+#     jawaban    : jawaban baku yang ditampilkan chatbot untuk intent ini
+
+- intent: syarat_pendaftaran
+  deskripsi: Pertanyaan tentang syarat dan berkas pendaftaran tenant.
+  jawaban: "Contoh jawaban baku syarat pendaftaran (isi sesuai kebijakan inkubator)."
+
+- intent: alur_seleksi
+  deskripsi: Pertanyaan tentang tahapan seleksi calon tenant.
+  jawaban: "Contoh jawaban baku alur seleksi."
+
+- intent: jadwal_kegiatan
+  deskripsi: Pertanyaan tentang jadwal kegiatan dan pelatihan.
+  jawaban: "Contoh jawaban baku jadwal kegiatan."
+
+- intent: ketentuan_luaran
+  deskripsi: Pertanyaan tentang luaran yang harus dihasilkan peserta.
+  jawaban: "Contoh jawaban baku ketentuan luaran."
+
+- intent: pengeluaran_keuangan
+  deskripsi: Pertanyaan tentang aturan pengeluaran dan reimbursement.
+  jawaban: "Contoh jawaban baku pengeluaran keuangan."
+
+- intent: review_revisi_berkas
+  deskripsi: Pertanyaan tentang revisi dan peninjauan berkas.
+  jawaban: "Contoh jawaban baku review/revisi berkas."
+
+- intent: kontak_admin
+  deskripsi: Pertanyaan tentang cara menghubungi admin/pengelola.
+  jawaban: "Contoh jawaban baku kontak admin."
+
+- intent: sapaan
+  deskripsi: Sapaan pembuka.
+  jawaban: "Halo! Ada yang bisa saya bantu terkait program inkubator?"
+
+- intent: terima_kasih
+  deskripsi: Ucapan terima kasih.
+  jawaban: "Sama-sama, semoga membantu!"
+
+- intent: tanya_dokumen
+  deskripsi: Permintaan dokumen/PDF mitra.
+  jawaban: "Silakan sebutkan dokumen yang Anda cari, saya akan bantu temukan."
+
+- intent: out_of_scope
+  deskripsi: Pertanyaan di luar cakupan layanan FAQ inkubator.
+  jawaban: "Maaf, pertanyaan itu di luar cakupan layanan ini. Silakan hubungi admin."

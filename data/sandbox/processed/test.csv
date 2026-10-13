@@ -1,0 +1,26 @@
+text,intent,source
+urutan tahapan seleksi dari awal sampai akhir,alur_seleksi,synthetic
+apakah harus punya badan usaha untuk daftar,syarat_pendaftaran,synthetic
+hai apa kabar,sapaan,synthetic
+resep nasi goreng enak,out_of_scope,synthetic
+cara membuat website toko online,out_of_scope,synthetic
+bagaimana cara mengakses dokumen mitra,tanya_dokumen,synthetic
+thank you,terima_kasih,synthetic
+luaran minimal yang harus dipenuhi tenant,ketentuan_luaran,synthetic
+oke makasih banyak,terima_kasih,synthetic
+bagaimana cara tahu berkas saya sudah benar,review_revisi_berkas,synthetic
+tolong buatkan puisi tentang hujan,out_of_scope,synthetic
+apakah pembelian tanpa nota bisa direimburse,pengeluaran_keuangan,synthetic
+ketentuan output akhir peserta inkubasi,ketentuan_luaran,synthetic
+apa saja berkas pendukung pendaftaran tenant baru,syarat_pendaftaran,synthetic
+mekanisme pemilihan tenant baru,alur_seleksi,synthetic
+halo,sapaan,synthetic
+apakah dokumen bisa diunduh dalam bentuk pdf,tanya_dokumen,synthetic
+waktu kegiatan inkubator biasanya jam berapa,jadwal_kegiatan,synthetic
+pagi kak,sapaan,synthetic
+bagaimana kalau ada kesalahan isi formulir,review_revisi_berkas,synthetic
+kapan jadwal bootcamp inkubator,jadwal_kegiatan,synthetic
+bagaimana status peninjauan dokumen saya,review_revisi_berkas,synthetic
+kontak bagian pendaftaran inkubator,kontak_admin,synthetic
+apakah pengeluaran harus pakai nota,pengeluaran_keuangan,synthetic
+nomor whatsapp admin inkubator,kontak_admin,synthetic

@@ -1,0 +1,40 @@
+# =============================================================================
+# requirements.txt
+# PRASYARAT: Python 3.10 - 3.12 (64-bit).
+#   Python 3.13+ belum punya wheel lengkap untuk PyTorch/PyYAML.
+#
+# PyTorch TIDAK ada di daftar ini karena pemasangannya bergantung pada ada
+# tidaknya GPU NVIDIA. Pasang manual setelah memeriksa `nvidia-smi`:
+#   CPU : pip install torch --index-url https://download.pytorch.org/whl/cpu
+#   CUDA: pip install torch --index-url https://download.pytorch.org/whl/cu124
+# =============================================================================
+
+# NLP / model
+transformers
+datasets
+evaluate
+accelerate
+sentence-transformers
+
+# Baseline klasik
+scikit-learn
+
+# Retrieval
+rank-bm25
+
+# PDF
+pymupdf
+
+# API & database
+fastapi
+uvicorn[standard]
+pydantic
+sqlalchemy
+
+# Utilitas
+pyyaml
+pandas
+numpy
+
+# Pengujian
+pytest
