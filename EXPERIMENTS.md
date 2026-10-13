@@ -23,6 +23,7 @@ konfigurasi, seed, metrik, durasi.
 | 6 - Routing & e2e | ✅ kode & uji sandbox | src/router.py: intent+tau1+retrieval/tau2 -> faq/dokumen/fallback; 123 tes lulus |
 | 7 - API & database | ✅ kode & uji sandbox | api/: FastAPI (/health, /intents, /chat) + SQLite (SQLAlchemy) + kunci X-API-KEY + rate limit + CORS; scripts/seed_responses.py; 140 tes lulus |
 | 8 - Deployment | ✅ kode & uji sandbox | deploy/ (contoh PS1 + templat layanan Windows, berkas saja) + scripts/preflight.py; 156 tes lulus |
+| 9 - Evaluasi final | 🟡 siap, belum dijalankan | src/final_eval.py + gerbang frasa; test set BELUM dibaca; 165 tes lulus |
 
 ### 2026-10-13 - Fase 0 (lingkungan)
 
@@ -147,6 +148,22 @@ konfigurasi, seed, metrik, durasi.
   (`windows-service/`: NSSM + WinSW) yang **dinonaktifkan** (butuh izin).
 - Tidak mengubah firewall/IIS/registry; tidak menjalankan layanan permanen.
 - `python -m pytest -q` -> 156 passed.
+
+### 2026-10-13 - Fase 9 (siap, BELUM dijalankan)
+
+- Dibuat `src/final_eval.py`: SATU-SATUNYA modul yang menyetel `ALLOW_TEST=1`
+  untuk membaca test set. Dilindungi **gerbang frasa konfirmasi**
+  (`--confirm "JALANKAN EVALUASI FINAL"`); tanpa frasa persis -> keluar kode 2
+  dan tidak menyentuh apa pun.
+- Mengimpor modul ini **tidak** membuka test set (kunci dibuka hanya di dalam
+  `run_final_eval`, lalu dikembalikan ke keadaan semula) — diuji eksplisit.
+- Yang dihitung bila dijalankan: metrik klasifikasi intent (accuracy, P/R/F1
+  macro & weighted, F1 per kelas, confusion), ECE + coverage/accepted-accuracy
+  pada tau1, dan akurasi route e2e dari `mixed_test.csv`. T & tau1 dibaca dari
+  `models/<slug>/calibration.json` (hasil val, tidak dipilih ulang).
+- **Test set proyek BELUM dibaca.** Alur diuji lewat fake (logits & router)
+  memakai CSV sintetis sementara di `tmp_path`, tanpa model dan tanpa test set.
+- `python -m pytest -q` -> 165 passed (9 tes final_eval baru).
 
 ---
 

@@ -101,7 +101,7 @@ chatbot-intent/
 │   ├── pdf/               # PDF mitra (rahasia)
 │   ├── rag_eval/          # qa_pairs / in_doc / out_doc
 │   └── e2e/               # mixed_val.csv / mixed_test.csv
-├── src/                   # kode inti (data_io, split, augment, train, calibrate, router, ...)
+├── src/                   # kode inti (data_io, split, augment, train, calibrate, router, final_eval, ...)
 ├── rag/                   # pipeline PDF: pdf_extract, chunking, index, retrieve, eval_retrieval
 ├── api/                   # FastAPI (settings, database, security, schemas, main)
 ├── scripts/               # seed_responses.py, make_sandbox_rag.py
@@ -180,6 +180,13 @@ python -m scripts.preflight --sandbox    # uji pipeline pada artefak sandbox
 #   Cadangkan DB:       .\deploy\backup_db.ps1
 #   Templat layanan Windows: deploy\windows-service\  (JANGAN dipasang tanpa izin)
 
+# Fase 9: evaluasi FINAL pada test set TERKUNCI
+#   HANYA dijalankan atas perintah eksplisit pemilik proyek, dengan frasa persis:
+python -m src.final_eval --confirm "JALANKAN EVALUASI FINAL"
+python -m src.final_eval --sandbox --confirm "JALANKAN EVALUASI FINAL"
+#   (tanpa frasa persis -> keluar kode 2 dan test set tidak disentuh)
+#   (menghasilkan reports/final_eval.md + mencatat ke EXPERIMENTS.md)
+
 # Tes
 python -m pytest -q
 ```
@@ -221,4 +228,4 @@ python -m pytest -q
 | 6 – Routing & e2e | ✅ kode & uji sandbox (src/router.py: faq/dokumen/fallback; 123 tes lulus) |
 | 7 – API & database | ✅ kode & uji sandbox (FastAPI /health,/intents,/chat + SQLite + kunci X-API-KEY; 140 tes lulus) |
 | 8 – Deployment (berkas saja) | ✅ kode & uji sandbox (contoh PS1 + preflight + templat layanan; 156 tes lulus) |
-| 9 – Evaluasi final | hanya atas perintah eksplisit |
+| 9 – Evaluasi final | 🟡 siap; menunggu perintah `JALANKAN EVALUASI FINAL` (test set belum dibaca) |
