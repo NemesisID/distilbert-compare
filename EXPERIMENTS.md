@@ -21,6 +21,7 @@ konfigurasi, seed, metrik, durasi.
 | 4 - Kalibrasi & tau1 | ✅ kode & uji sandbox | calibrate.py: temperature scaling (grid) + tau1 pada val; 77 tes lulus |
 | 5 - Pipeline PDF/retrieval | ✅ kode & uji sandbox | rag/: pdf_extract, chunking, index (dense+BM25), retrieve (RRF), eval_retrieval (tau2); 109 tes lulus |
 | 6 - Routing & e2e | ✅ kode & uji sandbox | src/router.py: intent+tau1+retrieval/tau2 -> faq/dokumen/fallback; 123 tes lulus |
+| 7 - API & database | ✅ kode & uji sandbox | api/: FastAPI (/health, /intents, /chat) + SQLite (SQLAlchemy) + kunci X-API-KEY + rate limit + CORS; scripts/seed_responses.py; 140 tes lulus |
 
 ### 2026-10-13 - Fase 0 (lingkungan)
 
@@ -109,6 +110,29 @@ konfigurasi, seed, metrik, durasi.
   selain itu => `faq`.
 - `python -m pytest -q` -> 123 passed.
 
+### 2026-10-13 - Fase 7 (uji pipeline, SANDBOX)
+
+- Perintah: `python -m scripts.seed_responses --sandbox`, lalu smoke `TestClient`
+  (FastAPI) dengan Router sandbox (`models/smoke` + `data/sandbox/vectorstore_dense`).
+- API: `GET /health` (publik), `GET /intents` + `POST /chat` (wajib header
+  `X-API-KEY`). Jawaban baku dibaca dari tabel `responses` (SQLite via SQLAlchemy);
+  setiap panggilan `/chat` dicatat ke `query_log` (audit).
+- Seed **[SANDBOX]**: `data/sandbox/intents_sandbox.yaml` -> 11 intent ke
+  `data/sandbox/chatbot_sandbox.db`.
+- Smoke **[SANDBOX]**: `/health` -> `n_responses=11`, `router_ready=True`;
+  `/intents` -> 11 entri; `/chat` tanpa kunci -> **401**; semua pertanyaan ->
+  `fallback` karena model smoke (1 epoch) belum konvergen (keyakinan ~0.22-0.29
+  < tau1=0.40). **BUKAN hasil penelitian**, hanya validasi alur
+  API -> Router -> DB.
+- Keamanan/operasional: kunci API HANYA dari `.env` (`CHATBOT_API_KEY`); bila
+  belum diisi, `/chat` & `/intents` -> **503**. CORS dari `CORS_ORIGINS`;
+  pembatas laju jendela-geser per kunci/IP (`RATE_LIMIT_PER_MINUTE`, default 30/menit).
+  URL database dari `DATABASE_URL` (fallback `paths.database`). Tidak ada layanan
+  permanen yang dijalankan.
+- Catatan: `TestClient` (starlette 1.8 + httpx 0.28) memunculkan
+  `StarletteDeprecationWarning` (saran `httpx2`) — hanya peringatan, semua tes lulus.
+- `python -m pytest -q` -> 140 passed.
+
 ---
 
 ## Log eksperimen
@@ -118,6 +142,7 @@ konfigurasi, seed, metrik, durasi.
 | Tanggal | Fase/Skrip | Model | Konfigurasi | Seed | Metrik | Durasi |
 |---------|------------|-------|-------------|------|--------|--------|
 <!-- APPEND_ROWS_HERE -->
+| 2026-10-13 | Fase 7 - API e2e (smoke) | smoke | [SANDBOX] FastAPI+SQLite auth=X-API-KEY seed=11 taut1=0.40 | 42 | [SANDBOX] health=ok \| intents=11 \| chat_no_key=401 \| routes=fallback(3) | 0.00s |
 | 2026-10-13 | Fase 6 - routing e2e (val) | smoke | [SANDBOX] method=rrf tau1=0.40 tau2=0.30 n=12 | 42 | [SANDBOX] accuracy=0.3333 | 0.00s |
 | 2026-10-13 | Fase 5 - retrieval PDF (eval) | rrf | [SANDBOX] method=rrf top_k=3 rrf_k=60 tau2=0.3 status=relaxed | 42 | [SANDBOX] mrr=1.0000 \| recall_at_1=1.0000 \| recall_at_k=1.0000 \| tau=0.3000 \| in_doc_recall=0.0000 \| out_doc_false_accept=0.0000 \| n_in_doc=4 \| n_out_doc=4 | 0.00s |
 | 2026-10-13 | Fase 5 - retrieval PDF (eval) | rrf | [SANDBOX] method=rrf top_k=3 rrf_k=60 tau2=0.3 status=relaxed | 42 | [SANDBOX] mrr=1.0000 \| recall_at_1=1.0000 \| recall_at_k=1.0000 \| tau=0.3000 \| in_doc_recall=0.0000 \| out_doc_false_accept=0.0000 \| n_in_doc=4 \| n_out_doc=4 | 0.00s |

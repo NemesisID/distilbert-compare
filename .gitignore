@@ -41,6 +41,11 @@ data/sandbox/vectorstore*/
 logs/
 *.log
 
+# Database (dibuat oleh scripts/seed_responses.py / saat API jalan)
+*.db
+*.sqlite
+*.sqlite3
+
 # OS / editor
 Thumbs.db
 desktop.ini

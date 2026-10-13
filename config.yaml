@@ -25,6 +25,7 @@ paths:
   rag_eval_dir: data/rag_eval
   e2e_dir: data/e2e
   answers: data/intents.yaml
+  database: data/chatbot.db
   reports_dir: reports
   models_dir: models
   vectorstore_dir: vectorstore
@@ -178,3 +179,7 @@ api:
   host: 127.0.0.1
   port: 8000
   max_input_chars: 500
+  api_key_header: "X-API-KEY"     # nama header kunci API (nilai dari .env)
+  rate_limit_per_minute: 30       # batas permintaan per kunci/IP
+  rate_limit_window_seconds: 60
+  cors_origins: []                # diisi lewat CORS_ORIGINS di .env bila perlu

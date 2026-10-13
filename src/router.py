@@ -28,9 +28,8 @@ import warnings
 from dataclasses import asdict, dataclass, field
 from pathlib import Path
 
-import yaml
-
 from src import calibrate, data_io, experiment_log
+from src.answers import load_answers
 from src.train import model_slug
 
 ROUTE_FAQ = "faq"
@@ -94,22 +93,8 @@ class RouteDecision:
 
 
 # ---------------------------------------------------------------------------
-# Pemuat jawaban baku
+# Pemuat jawaban baku (lihat ``src/answers.py``)
 # ---------------------------------------------------------------------------
-
-
-def load_answers(path: str | Path) -> dict[str, str]:
-    """Baca ``data/intents.yaml`` -> peta intent -> jawaban baku."""
-    p = Path(path)
-    if not p.exists():
-        return {}
-    data = yaml.safe_load(p.read_text(encoding="utf-8")) or []
-    answers: dict[str, str] = {}
-    for entry in data:
-        if not isinstance(entry, dict) or "intent" not in entry:
-            continue
-        answers[str(entry["intent"])] = str(entry.get("jawaban", "")).strip()
-    return answers
 
 
 # ---------------------------------------------------------------------------

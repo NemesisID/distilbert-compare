@@ -74,6 +74,7 @@ Daftar lengkap (`pip freeze`) ada di `reports/library_versions.txt`. Versi kunci
 | PyMuPDF (pymupdf) | 1.28.2 |
 | FastAPI / SQLAlchemy / pydantic | 0.143.0 / 2.1.4 / 2.14.1 |
 | rank-bm25 | 0.2.2 |
+| python-dotenv | 1.2.4 |
 | pytest | 9.1.1 |
 
 > Catatan: `transformers` sudah versi **5.x** — nama argumen Trainer berbeda
@@ -102,7 +103,7 @@ chatbot-intent/
 │   └── e2e/               # mixed_val.csv / mixed_test.csv
 ├── src/                   # kode inti (data_io, split, augment, train, calibrate, router, ...)
 ├── rag/                   # pipeline PDF: pdf_extract, chunking, index, retrieve, eval_retrieval
-├── api/                   # FastAPI
+├── api/                   # FastAPI (settings, database, security, schemas, main)
 ├── scripts/               # seed_responses.py, make_sandbox_rag.py
 ├── deploy/                # contoh berkas layanan Windows (belum dijalankan)
 ├── models/                # hasil fine-tuning (git-ignored)
@@ -162,6 +163,14 @@ python -m src.router --ask "berapa kuota peserta angkatan"   # cek satu pertanya
 #   (--sandbox untuk uji pipeline; --tau1/--tau2 hanya untuk diagnostik)
 #   (menghasilkan reports/e2e_val.md dan mencatat ke EXPERIMENTS.md)
 
+# Fase 7: API & database (FastAPI + SQLite)
+python -m scripts.seed_responses                         # isi jawaban baku dari data/intents.yaml
+python -m scripts.seed_responses --sandbox               # uji pipeline (jawaban + DB sandbox)
+#   Jalankan layanan (butuh .env -> CHATBOT_API_KEY). Hentikan manual; JANGAN jadikan
+#   layanan permanen:
+#   uvicorn api.main:app --host 127.0.0.1 --port 8000
+#   Endpoint: GET /health (publik) | GET /intents | POST /chat  (header X-API-KEY)
+
 # Tes
 python -m pytest -q
 ```
@@ -201,6 +210,6 @@ python -m pytest -q
 | 4 – Kalibrasi & tau1 | ✅ kode & uji sandbox (temperature scaling + tau1 pada val; 77 tes lulus) |
 | 5 – Pipeline PDF | ✅ kode & uji sandbox (pdf_extract/chunking/index/retrieve/eval_retrieval; 109 tes lulus) |
 | 6 – Routing & e2e | ✅ kode & uji sandbox (src/router.py: faq/dokumen/fallback; 123 tes lulus) |
-| 7 – API & database | belum dimulai |
+| 7 – API & database | ✅ kode & uji sandbox (FastAPI /health,/intents,/chat + SQLite + kunci X-API-KEY; 140 tes lulus) |
 | 8 – Deployment (berkas saja) | belum dimulai |
 | 9 – Evaluasi final | hanya atas perintah eksplisit |
