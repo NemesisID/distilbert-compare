@@ -7,7 +7,7 @@ import json
 import numpy as np
 import pytest
 
-from src import train
+from src import data_io, train
 
 
 class _EP:
@@ -255,3 +255,67 @@ def test_main_multiseed_mode_wires(tmp_path, monkeypatch):
                      "--lr", "3e-5", "--batch", "16", "--output", str(out)])
     assert rc == 0
     assert (out / "selected.json").exists()
+
+
+# ---------------------------------------------------------------------------
+# Grid penuh vs grid diperkecil
+# ---------------------------------------------------------------------------
+
+
+def test_resolve_grid_full_matches_training_values():
+    grid = train.resolve_grid(_tcfg(), "full")
+    assert grid["learning_rates"] == [2e-5, 3e-5]
+    assert grid["batch_sizes"] == [16, 32]
+    assert grid["epochs_max"] == 10
+    assert grid["early_stopping_patience"] == 3
+
+
+def test_resolve_grid_reduced_overrides():
+    tcfg = _tcfg()
+    tcfg["reduced_grid"] = {
+        "learning_rates": [2e-5, 3e-5],
+        "batch_sizes": [16],
+        "epochs_max": 6,
+        "early_stopping_patience": 2,
+    }
+    grid = train.resolve_grid(tcfg, "reduced")
+    assert grid["learning_rates"] == [2e-5, 3e-5]
+    assert grid["batch_sizes"] == [16]
+    assert grid["epochs_max"] == 6
+    assert grid["early_stopping_patience"] == 2
+
+
+def test_apply_grid_does_not_mutate_source():
+    tcfg = _tcfg()
+    out = train.apply_grid(tcfg, train.resolve_grid(tcfg, "full"))
+    out["epochs_max"] = 999
+    assert tcfg["epochs_max"] == 10
+
+
+def test_config_reduced_grid_matches_approved_values():
+    cfg = data_io.load_config()
+    grid = train.resolve_grid(cfg["training"], "reduced")
+    assert grid["learning_rates"] == [2e-5, 3e-5]
+    assert grid["batch_sizes"] == [16]
+    assert grid["epochs_max"] == 6
+    assert grid["early_stopping_patience"] == 2
+
+
+def test_main_grid_reduced_uses_reduced_epochs(tmp_path, monkeypatch):
+    captured = {}
+
+    def fake(**kw):
+        captured.update(kw)
+        return train.TrainResult(
+            kw["model_name"], kw["seed"], kw["lr"], kw["batch"], kw["epochs"],
+            {"accuracy": 0.5, "f1_macro": 0.5}, 1.0, str(kw["output_dir"]),
+        )
+
+    monkeypatch.setattr(train, "train_single", fake)
+    monkeypatch.setattr(train.experiment_log, "log_experiment", lambda **kw: None)
+    rc = train.main(["--mode", "single", "--grid", "reduced", "--sandbox",
+                     "--output", str(tmp_path / "o")])
+    assert rc == 0
+    assert captured["epochs"] == 6
+    assert captured["patience"] == 2
+    assert captured["batch"] == 16

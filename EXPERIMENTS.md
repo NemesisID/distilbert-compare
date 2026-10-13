@@ -57,8 +57,11 @@ konfigurasi, seed, metrik, durasi.
 - Catatan teknis transformers 5.19: `eval_strategy`, `processing_class`, `warmup_steps`
   (bukan `warmup_ratio`), `save_only_model=True`.
 - `torch.cuda.is_available()` = **False** (device_count=0, tanpa `nvidia-smi`) -> CPU-only.
-- `python -m pytest -q` -> 61 passed.
-- Menunggu persetujuan user untuk grid pencarian hyperparameter yang diperkecil.
+- `python -m pytest -q` -> 66 passed.
+- **Grid diperkecil DISETUJUI user** (CPU-only): model primer, lr {2e-5, 3e-5} x
+  batch {16}, maks 6 epoch, early-stopping patience 2 (`training.reduced_grid`),
+  dijalankan lewat `--grid reduced` saat data asli tersedia.
+- Model pembanding (distilbert-base-multilingual-cased) menyusul bila hasil primer wajar.
 
 
 ---

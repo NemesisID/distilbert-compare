@@ -317,6 +317,36 @@ def _common_kwargs(tcfg: dict, intents, train_df, val_df, use_class_weight: bool
     )
 
 
+def resolve_grid(tcfg: dict, name: str = "full") -> dict:
+    """Gabungkan grid bernama dari config dengan nilai default ``training``.
+
+    ``name="full"`` memakai nilai tingkat ``training`` apa adanya. Nama lain
+    (mis. ``"reduced"``) menimpa sebagian nilai dari ``<name>_grid`` di config.
+    Tidak ada angka ajaib di kode: semua berasal dari ``config.yaml``.
+    """
+    merged = {
+        "learning_rates": list(tcfg["learning_rates"]),
+        "batch_sizes": list(tcfg["batch_sizes"]),
+        "epochs_max": int(tcfg["epochs_max"]),
+        "early_stopping_patience": int(tcfg["early_stopping_patience"]),
+    }
+    if name != "full":
+        overrides = tcfg.get(f"{name}_grid") or {}
+        merged.update(overrides)
+        merged["learning_rates"] = list(merged["learning_rates"])
+        merged["batch_sizes"] = list(merged["batch_sizes"])
+        merged["epochs_max"] = int(merged["epochs_max"])
+        merged["early_stopping_patience"] = int(merged["early_stopping_patience"])
+    return merged
+
+
+def apply_grid(tcfg: dict, grid: dict) -> dict:
+    """Terapkan hasil ``resolve_grid`` ke salinan ``tcfg`` untuk run_search/multiseed."""
+    out = dict(tcfg)
+    out.update(grid)
+    return out
+
+
 def _log(fase: str, model_name: str, cfg_text: str, seed: int, result: TrainResult, sandbox: bool, notes: str) -> None:
     """Catat satu run ke EXPERIMENTS.md."""
     experiment_log.log_experiment(
@@ -513,20 +543,29 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--limit-train", type=int, default=None)
     parser.add_argument("--limit-val", type=int, default=None)
     parser.add_argument("--sandbox", action="store_true")
+    parser.add_argument(
+        "--grid",
+        choices=["full", "reduced"],
+        default="full",
+        help="full: grid penuh dari config; reduced: grid CPU diperkecil (reduced_grid).",
+    )
     args = parser.parse_args(argv)
 
     cfg = data_io.load_config()
     tcfg = cfg["training"]
     intents = data_io.get_intents(cfg)
 
+    # Grid yang dipakai: "full" pakai nilai training; "reduced" menimpa dari config.
+    run_cfg = apply_grid(tcfg, resolve_grid(tcfg, args.grid))
+
     model_name = args.model or cfg["models"]["primary"]
     seed = int(args.seed if args.seed is not None else data_io.get_primary_seed(cfg))
-    lr = float(args.lr if args.lr is not None else tcfg["learning_rates"][0])
-    batch = int(args.batch if args.batch is not None else tcfg["batch_sizes"][0])
-    epochs = int(args.epochs if args.epochs is not None else tcfg["epochs_max"])
+    lr = float(args.lr if args.lr is not None else run_cfg["learning_rates"][0])
+    batch = int(args.batch if args.batch is not None else run_cfg["batch_sizes"][0])
+    epochs = int(args.epochs if args.epochs is not None else run_cfg["epochs_max"])
 
     train_df, val_df, train_path, val_path, sandbox = _load_frames(cfg, args)
-    common = _common_kwargs(tcfg, intents, train_df, val_df, bool(args.class_weight))
+    common = _common_kwargs(run_cfg, intents, train_df, val_df, bool(args.class_weight))
 
     # Folder kanonik model + folder run mentah.
     publish_dir = (
@@ -551,7 +590,7 @@ def main(argv: list[str] | None = None) -> int:
         _log(
             "Fase 3 - fine-tuning",
             model_name,
-            f"lr={lr} batch={batch} epochs={epochs} max_len={tcfg['max_length']} "
+            f"lr={lr} batch={batch} epochs={epochs} max_len={run_cfg['max_length']} "
             f"class_weight={args.class_weight} train={train_path.name}",
             seed,
             result,
@@ -566,7 +605,7 @@ def main(argv: list[str] | None = None) -> int:
             train_df=train_df,
             val_df=val_df,
             intents=intents,
-            tcfg=tcfg,
+            tcfg=run_cfg,
             seed=seed,
             epochs=epochs,
             runs_root=runs_root,
@@ -585,7 +624,7 @@ def main(argv: list[str] | None = None) -> int:
         train_df=train_df,
         val_df=val_df,
         intents=intents,
-        tcfg=tcfg,
+        tcfg=run_cfg,
         lr=lr,
         batch=batch,
         seeds=data_io.get_seeds(cfg),

@@ -122,6 +122,13 @@ training:
   dataloader_num_workers: 0     # WAJIB 0 di Windows (spawn)
   torch_num_threads: 4          # kuota thread di server lab bersama
   device_preference: auto       # auto | cpu | cuda
+  # Grid diperkecil yang DISETUJUI user untuk CPU-only (lihat EXPERIMENTS.md
+  # Fase 3): model primer, lr {2e-5,3e-5} x batch {16}, maks 6 epoch, patience 2.
+  reduced_grid:
+    learning_rates: [0.00002, 0.00003]
+    batch_sizes: [16]
+    epochs_max: 6
+    early_stopping_patience: 2
 
 # -----------------------------------------------------------------------------
 # Kalibrasi (temperature scaling) dan ambang tau1

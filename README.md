@@ -136,12 +136,13 @@ python -m src.leakage_check      # -> reports/leakage_report.md (exit!=0 bila bo
 python -m src.baseline           # -> reports/baseline_val.md + EXPERIMENTS.md
 #   (tambahkan --sandbox untuk menguji alur memakai data sintetis)
 
-# Fase 3: fine-tuning DistilBERT (CPU-only -> grid diperkecil)
-python -m src.train --mode single --model cahya/distilbert-base-indonesian
-python -m src.train --mode search                       # grid lr x batch di val
-python -m src.train --mode multiseed --lr 2e-5 --batch 16   # 3 seed (42,43,44)
-#   (tambahkan --sandbox untuk uji pipeline di data sintetis)
+# Fase 3: fine-tuning DistilBERT (CPU-only -> pakai --grid reduced)
+python -m src.train --mode single --grid reduced --model cahya/distilbert-base-indonesian
+python -m src.train --mode search --grid reduced                      # grid diperkecil di val
+python -m src.train --mode multiseed --grid reduced --lr 2e-5 --batch 16  # 3 seed (42,43,44)
+#   (--grid full = grid penuh dari config; --sandbox = uji pipeline di data sintetis)
 #   (--output models/<nama> ; model terbaik disalin ke sana + selected.json)
+#   (grid "reduced" diatur di config.yaml -> training.reduced_grid)
 
 # Tes
 python -m pytest -q
