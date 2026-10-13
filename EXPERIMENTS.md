@@ -20,6 +20,7 @@ konfigurasi, seed, metrik, durasi.
 | 3 - Fine-tuning DistilBERT | ✅ kode & uji sandbox | 66 tes lulus; train.py (single/search/multiseed); grid CPU disetujui (--grid reduced) |
 | 4 - Kalibrasi & tau1 | ✅ kode & uji sandbox | calibrate.py: temperature scaling (grid) + tau1 pada val; 77 tes lulus |
 | 5 - Pipeline PDF/retrieval | ✅ kode & uji sandbox | rag/: pdf_extract, chunking, index (dense+BM25), retrieve (RRF), eval_retrieval (tau2); 109 tes lulus |
+| 6 - Routing & e2e | ✅ kode & uji sandbox | src/router.py: intent+tau1+retrieval/tau2 -> faq/dokumen/fallback; 123 tes lulus |
 
 ### 2026-10-13 - Fase 0 (lingkungan)
 
@@ -92,6 +93,22 @@ konfigurasi, seed, metrik, durasi.
 - Tesseract belum terpasang -> PDF hasil scan hanya memicu peringatan (tanpa OCR).
 - `python -m pytest -q` -> 109 passed.
 
+### 2026-10-13 - Fase 6 (uji pipeline, SANDBOX)
+
+- Perintah: `python -m src.router --sandbox` (evaluasi `mixed_val`) dan
+  `python -m src.router --sandbox --ask "<pertanyaan>" [--tau1 .. --tau2 ..]`.
+- Routing e2e **[SANDBOX]** (12 baris, model smoke 1 epoch): akurasi route = 0.3333;
+  hampir semua jatuh ke `fallback` karena model belum konvergen (keyakinan ~0.17-0.39
+  < tau1=0.40). **BUKAN hasil penelitian**; hanya validasi alur
+  model -> kalibrasi -> retrieval -> jawaban.
+- Ketiga route terbukti jalan lewat `--ask`: `faq` (terima_kasih -> jawaban baku),
+  `dokumen` (kutipan `jadwal_program.pdf` hal. 1 + daftar sumber), dan `fallback`
+  (OOS / keyakinan rendah / dokumen tak ditemukan).
+- Definisi route (default; menunggu konfirmasi pemilik proyek): OOS => `fallback`;
+  keyakinan < tau1 => `fallback`; `tanya_dokumen` & skor < tau2 => `fallback`;
+  selain itu => `faq`.
+- `python -m pytest -q` -> 123 passed.
+
 ---
 
 ## Log eksperimen
@@ -101,6 +118,7 @@ konfigurasi, seed, metrik, durasi.
 | Tanggal | Fase/Skrip | Model | Konfigurasi | Seed | Metrik | Durasi |
 |---------|------------|-------|-------------|------|--------|--------|
 <!-- APPEND_ROWS_HERE -->
+| 2026-10-13 | Fase 6 - routing e2e (val) | smoke | [SANDBOX] method=rrf tau1=0.40 tau2=0.30 n=12 | 42 | [SANDBOX] accuracy=0.3333 | 0.00s |
 | 2026-10-13 | Fase 5 - retrieval PDF (eval) | rrf | [SANDBOX] method=rrf top_k=3 rrf_k=60 tau2=0.3 status=relaxed | 42 | [SANDBOX] mrr=1.0000 \| recall_at_1=1.0000 \| recall_at_k=1.0000 \| tau=0.3000 \| in_doc_recall=0.0000 \| out_doc_false_accept=0.0000 \| n_in_doc=4 \| n_out_doc=4 | 0.00s |
 | 2026-10-13 | Fase 5 - retrieval PDF (eval) | rrf | [SANDBOX] method=rrf top_k=3 rrf_k=60 tau2=0.3 status=relaxed | 42 | [SANDBOX] mrr=1.0000 \| recall_at_1=1.0000 \| recall_at_k=1.0000 \| tau=0.3000 \| in_doc_recall=0.0000 \| out_doc_false_accept=0.0000 \| n_in_doc=4 \| n_out_doc=4 | 0.00s |
 | 2026-10-13 | Fase 5 - retrieval PDF (eval) | bm25 | [SANDBOX] method=bm25 top_k=3 rrf_k=60 tau2=None status=skipped | 42 | [SANDBOX] mrr=1.0000 \| recall_at_1=1.0000 \| recall_at_k=1.0000 | 0.00s |

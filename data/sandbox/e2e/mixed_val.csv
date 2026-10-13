@@ -1,0 +1,13 @@
+question,expected_route
+halo selamat pagi admin,faq
+terima kasih atas informasinya,faq
+bagaimana cara menghubungi admin inkubator,faq
+apa saja syarat pendaftaran tenant,faq
+berapa kuota peserta setiap angkatan,dokumen
+kapan klinik keuangan dijadwalkan,dokumen
+bagaimana alur seleksi dan verifikasi berkas,dokumen
+apa ketentuan luaran akhir program inkubasi,dokumen
+bagaimana prakiraan cuaca besok pagi,fallback
+resep membuat kue lapis legit,fallback
+jadwal pertandingan liga sepak bola eropa,fallback
+harga tiket pesawat ke luar negeri,fallback

@@ -1,0 +1,49 @@
+# =============================================================================
+# intents_sandbox.yaml - JAWABAN BAKU SINTETIS untuk UJI PIPELINE saja.
+# BUKAN konten resmi inkubator. Jangan dipakai di produksi.
+# Salin data/intents.template.yaml -> data/intents.yaml untuk jawaban nyata.
+# =============================================================================
+
+- intent: syarat_pendaftaran
+  deskripsi: Pertanyaan tentang syarat dan berkas pendaftaran tenant.
+  jawaban: "[SANDBOX] Syarat: KTM aktif, proposal usaha, dan surat izin prodi."
+
+- intent: alur_seleksi
+  deskripsi: Pertanyaan tentang tahapan seleksi calon tenant.
+  jawaban: "[SANDBOX] Seleksi administrasi lalu seleksi substansi (presentasi)."
+
+- intent: jadwal_kegiatan
+  deskripsi: Pertanyaan tentang jadwal kegiatan dan pelatihan.
+  jawaban: "[SANDBOX] Pendampingan dua kali sebulan selama enam bulan."
+
+- intent: ketentuan_luaran
+  deskripsi: Pertanyaan tentang luaran yang harus dihasilkan peserta.
+  jawaban: "[SANDBOX] Luaran: prototipe produk dan rencana bisnis satu tahun."
+
+- intent: pengeluaran_keuangan
+  deskripsi: Pertanyaan tentang aturan pengeluaran dan reimbursement.
+  jawaban: "[SANDBOX] Pengeluaran wajib disertai bukti dan divalidasi pengelola."
+
+- intent: review_revisi_berkas
+  deskripsi: Pertanyaan tentang revisi dan peninjauan berkas.
+  jawaban: "[SANDBOX] Revisi berkas maksimal satu pekan sebelum penutupan."
+
+- intent: kontak_admin
+  deskripsi: Pertanyaan tentang cara menghubungi admin/pengelola.
+  jawaban: "[SANDBOX] Hubungi admin di admin.inkubator@contoh.ac.id."
+
+- intent: sapaan
+  deskripsi: Sapaan pembuka.
+  jawaban: "[SANDBOX] Halo! Ada yang bisa saya bantu terkait program inkubator?"
+
+- intent: terima_kasih
+  deskripsi: Ucapan terima kasih.
+  jawaban: "[SANDBOX] Sama-sama, semoga membantu!"
+
+- intent: tanya_dokumen
+  deskripsi: Permintaan dokumen/PDF mitra.
+  jawaban: "[SANDBOX] Silakan sebutkan dokumen yang Anda cari."
+
+- intent: out_of_scope
+  deskripsi: Pertanyaan di luar cakupan layanan FAQ inkubator.
+  jawaban: "[SANDBOX] Maaf, pertanyaan itu di luar cakupan layanan ini."

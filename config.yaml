@@ -24,6 +24,7 @@ paths:
   pdf_dir: data/pdf
   rag_eval_dir: data/rag_eval
   e2e_dir: data/e2e
+  answers: data/intents.yaml
   reports_dir: reports
   models_dir: models
   vectorstore_dir: vectorstore
@@ -49,6 +50,11 @@ intents:
 routing:
   doc_intent: tanya_dokumen       # intent yang boleh memicu pencarian PDF
   oos_intent: out_of_scope        # dianggap "di luar cakupan FAQ"
+  # Pesan baku (jawaban tidak generatif, hanya teks tetap):
+  fallback_answer: "Maaf, saya belum bisa memahami pertanyaan itu. Silakan hubungi admin inkubator."
+  not_found_answer: "Informasi tersebut tidak ditemukan di dokumen mitra. Silakan hubungi admin inkubator."
+  # Route yang mungkin: faq | dokumen | fallback (dipakai evaluasi e2e).
+  routes: [faq, dokumen, fallback]
 
 # Jumlah minimum contoh per intent. Nilai default + override khusus.
 # Di bawah ini akan menjadi PERINGATAN (warning), bukan error.

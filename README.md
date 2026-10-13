@@ -100,7 +100,7 @@ chatbot-intent/
 │   ├── pdf/               # PDF mitra (rahasia)
 │   ├── rag_eval/          # qa_pairs / in_doc / out_doc
 │   └── e2e/               # mixed_val.csv / mixed_test.csv
-├── src/                   # kode inti (data_io, split, augment, train, calibrate, ...)
+├── src/                   # kode inti (data_io, split, augment, train, calibrate, router, ...)
 ├── rag/                   # pipeline PDF: pdf_extract, chunking, index, retrieve, eval_retrieval
 ├── api/                   # FastAPI
 ├── scripts/               # seed_responses.py, make_sandbox_rag.py
@@ -156,6 +156,12 @@ python -m rag.eval_retrieval --method rrf                         # evaluasi + p
 #   (--sandbox untuk uji pipeline di data sintetis)
 #   (uji sandbox: python -m scripts.make_sandbox_rag lalu arahkan --pdf-dir/--vectorstore ke data/sandbox/)
 
+# Fase 6: routing intent + retrieval -> faq | dokumen | fallback (evaluasi val)
+python -m src.router                                         # evaluasi data/e2e/mixed_val.csv
+python -m src.router --ask "berapa kuota peserta angkatan"   # cek satu pertanyaan
+#   (--sandbox untuk uji pipeline; --tau1/--tau2 hanya untuk diagnostik)
+#   (menghasilkan reports/e2e_val.md dan mencatat ke EXPERIMENTS.md)
+
 # Tes
 python -m pytest -q
 ```
@@ -194,7 +200,7 @@ python -m pytest -q
 | 3 – Fine-tuning DistilBERT | ✅ kode & uji sandbox (66 tes lulus; single/search/multiseed) |
 | 4 – Kalibrasi & tau1 | ✅ kode & uji sandbox (temperature scaling + tau1 pada val; 77 tes lulus) |
 | 5 – Pipeline PDF | ✅ kode & uji sandbox (pdf_extract/chunking/index/retrieve/eval_retrieval; 109 tes lulus) |
-| 6 – Routing & e2e | belum dimulai |
+| 6 – Routing & e2e | ✅ kode & uji sandbox (src/router.py: faq/dokumen/fallback; 123 tes lulus) |
 | 7 – API & database | belum dimulai |
 | 8 – Deployment (berkas saja) | belum dimulai |
 | 9 – Evaluasi final | hanya atas perintah eksplisit |
