@@ -19,6 +19,7 @@ konfigurasi, seed, metrik, durasi.
 | 2 - Augmentasi/leakage/baseline | ✅ kode & uji sandbox | 39 tes lulus; angka sandbox ditandai [SANDBOX] |
 | 3 - Fine-tuning DistilBERT | ✅ kode & uji sandbox | 66 tes lulus; train.py (single/search/multiseed); grid CPU disetujui (--grid reduced) |
 | 4 - Kalibrasi & tau1 | ✅ kode & uji sandbox | calibrate.py: temperature scaling (grid) + tau1 pada val; 77 tes lulus |
+| 5 - Pipeline PDF/retrieval | ✅ kode & uji sandbox | rag/: pdf_extract, chunking, index (dense+BM25), retrieve (RRF), eval_retrieval (tau2); 109 tes lulus |
 
 ### 2026-10-13 - Fase 0 (lingkungan)
 
@@ -73,6 +74,24 @@ konfigurasi, seed, metrik, durasi.
 - Suhu dicari lewat grid log-spaced (bukan LBFGS) demi kestabilan pada data kecil.
 - `python -m pytest -q` -> 77 passed.
 
+### 2026-10-13 - Fase 5 (uji pipeline, SANDBOX)
+
+- Perintah:
+  `python -m scripts.make_sandbox_rag` (buat PDF+eval sintetis) ->
+  `python -m rag.index --pdf-dir data/sandbox/pdf --out data/sandbox/vectorstore --no-dense` ->
+  `python -m rag.index --pdf-dir data/sandbox/pdf --out data/sandbox/vectorstore_dense` ->
+  `python -m rag.eval_retrieval --sandbox --method rrf --vectorstore data/sandbox/vectorstore_dense`.
+- Retrieval **[SANDBOX]** (2 dokumen, 4 chunk): MRR=1.0000, recall@1=recall@2=recall@3=1.0000.
+  Data sintetis, BUKAN hasil penelitian.
+- **Temuan skala tau2:** model `distiluse-base-multilingual-cased-v2` sangat menurunkan
+  kemiripan saat jawaban tertanam dalam chunk panjang (mis. 0.66 -> 0.19 pada chunk ~47 kata).
+  Akibatnya skor top-1 in-doc hanya ~0.15-0.22, di bawah `rag.tau2_min` (0.30), sehingga
+  grid tau2 default [0.30, 0.90] tidak menemukan ambang valid (status `relaxed`).
+  Laporan menandai ini lewat "Peringatan skala". Kandidat perbaikan (menunggu keputusan
+  pemilik proyek): turunkan `rag.tau2_min` (mis. 0.05) atau pakai skor gabungan BM25/RRF.
+- Tesseract belum terpasang -> PDF hasil scan hanya memicu peringatan (tanpa OCR).
+- `python -m pytest -q` -> 109 passed.
+
 ---
 
 ## Log eksperimen
@@ -82,6 +101,9 @@ konfigurasi, seed, metrik, durasi.
 | Tanggal | Fase/Skrip | Model | Konfigurasi | Seed | Metrik | Durasi |
 |---------|------------|-------|-------------|------|--------|--------|
 <!-- APPEND_ROWS_HERE -->
+| 2026-10-13 | Fase 5 - retrieval PDF (eval) | rrf | [SANDBOX] method=rrf top_k=3 rrf_k=60 tau2=0.3 status=relaxed | 42 | [SANDBOX] mrr=1.0000 \| recall_at_1=1.0000 \| recall_at_k=1.0000 \| tau=0.3000 \| in_doc_recall=0.0000 \| out_doc_false_accept=0.0000 \| n_in_doc=4 \| n_out_doc=4 | 0.00s |
+| 2026-10-13 | Fase 5 - retrieval PDF (eval) | rrf | [SANDBOX] method=rrf top_k=3 rrf_k=60 tau2=0.3 status=relaxed | 42 | [SANDBOX] mrr=1.0000 \| recall_at_1=1.0000 \| recall_at_k=1.0000 \| tau=0.3000 \| in_doc_recall=0.0000 \| out_doc_false_accept=0.0000 \| n_in_doc=4 \| n_out_doc=4 | 0.00s |
+| 2026-10-13 | Fase 5 - retrieval PDF (eval) | bm25 | [SANDBOX] method=bm25 top_k=3 rrf_k=60 tau2=None status=skipped | 42 | [SANDBOX] mrr=1.0000 \| recall_at_1=1.0000 \| recall_at_k=1.0000 | 0.00s |
 | 2026-10-13 | Fase 4 - kalibrasi (val) | smoke | [SANDBOX] temperature=0.3254 tau1=0.40 status=ok val=val.csv | 42 | [SANDBOX] ece_before=0.3026 \| ece_after=0.1826 \| coverage=0.0400 \| accepted_accuracy=1.0000 \| oos_false_accept=0.0000 | 0.00s |
 | 2026-10-13 | Fase 3 - fine-tuning | cahya/distilbert-base-indonesian | [SANDBOX] lr=3e-05 batch=16 epochs=1 max_len=64 class_weight=False train=train_aug.csv | 42 | [SANDBOX] accuracy=0.4400 \| f1_macro=0.3919 \| eval_loss=2.2171 \| best_metric=0.3919 | 44.34s |
 | 2026-10-13 | Fase 3 - fine-tuning | cahya/distilbert-base-indonesian | [SANDBOX] lr=3e-05 batch=16 epochs=1 max_len=64 class_weight=False train=train_aug.csv | 42 | [SANDBOX] accuracy=0.4400 \| f1_macro=0.3919 \| eval_loss=2.2171 \| best_metric=0.3919 | 45.43s |

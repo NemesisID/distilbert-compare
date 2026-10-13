@@ -100,10 +100,10 @@ chatbot-intent/
 │   ├── pdf/               # PDF mitra (rahasia)
 │   ├── rag_eval/          # qa_pairs / in_doc / out_doc
 │   └── e2e/               # mixed_val.csv / mixed_test.csv
-├── src/                   # kode inti
-├── rag/                   # pipeline PDF
+├── src/                   # kode inti (data_io, split, augment, train, calibrate, ...)
+├── rag/                   # pipeline PDF: pdf_extract, chunking, index, retrieve, eval_retrieval
 ├── api/                   # FastAPI
-├── scripts/               # seed_responses.py
+├── scripts/               # seed_responses.py, make_sandbox_rag.py
 ├── deploy/                # contoh berkas layanan Windows (belum dijalankan)
 ├── models/                # hasil fine-tuning (git-ignored)
 ├── vectorstore/           # indeks vektor (git-ignored)
@@ -149,6 +149,13 @@ python -m src.calibrate --model-dir models/distilbert-base-indonesian
 #   (--sandbox untuk uji pipeline -> reports/sandbox_calibration_val.md)
 #   (menghasilkan reports/calibration_val.md + models/<nama>/calibration.json)
 
+# Fase 5: pipeline PDF/retrieval
+python -m rag.index --pdf-dir data/pdf --out vectorstore          # bangun indeks (dense + BM25)
+python -m rag.index --pdf-dir data/pdf --out vectorstore --no-dense   # BM25 saja (cepat)
+python -m rag.eval_retrieval --method rrf                         # evaluasi + pilih tau2 (data rag_eval)
+#   (--sandbox untuk uji pipeline di data sintetis)
+#   (uji sandbox: python -m scripts.make_sandbox_rag lalu arahkan --pdf-dir/--vectorstore ke data/sandbox/)
+
 # Tes
 python -m pytest -q
 ```
@@ -184,9 +191,9 @@ python -m pytest -q
 | 0 – Persiapan | ✅ selesai (Python 3.12.10, torch 2.14.1+cpu, CPU-only) |
 | 1 – Kerangka & data | ✅ selesai (22 tes lulus) |
 | 2 – Augmentasi/leakage/baseline | ✅ kode & uji sandbox (39 tes lulus) |
-| 3 – Fine-tuning DistilBERT | ✅ kode & uji sandbox (61 tes lulus; single/search/multiseed) |
-| 4 – Kalibrasi & tau1 | ✅ kode & uji sandbox (temperature scaling + tau1 pada val) |
-| 5 – Pipeline PDF | belum dimulai |
+| 3 – Fine-tuning DistilBERT | ✅ kode & uji sandbox (66 tes lulus; single/search/multiseed) |
+| 4 – Kalibrasi & tau1 | ✅ kode & uji sandbox (temperature scaling + tau1 pada val; 77 tes lulus) |
+| 5 – Pipeline PDF | ✅ kode & uji sandbox (pdf_extract/chunking/index/retrieve/eval_retrieval; 109 tes lulus) |
 | 6 – Routing & e2e | belum dimulai |
 | 7 – API & database | belum dimulai |
 | 8 – Deployment (berkas saja) | belum dimulai |

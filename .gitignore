@@ -33,6 +33,10 @@ data/e2e/mixed_test.csv
 models/
 vectorstore/
 
+# Artefak sandbox yang dapat dibuat ulang (lihat scripts/make_sandbox_rag.py)
+data/sandbox/pdf/*.pdf
+data/sandbox/vectorstore*/
+
 # Log
 logs/
 *.log

@@ -153,12 +153,16 @@ rag:
   chunk_words: 90
   chunk_overlap: 20
   embedding_max_seq_length: 128
+  embedding_batch_size: 32        # batch saat encode (sentence-transformers)
   top_k: 3
   rrf_k: 60
   rrf_pool: 20
   tau2_min: 0.30
   tau2_max: 0.90
   tau2_step: 0.05
+  # Kriteria pemilihan tau2 (retrieval) - dapat diubah pemilik proyek:
+  tau2_accept_recall_min: 0.90        # in-doc yang tertangkap minimal
+  tau2_false_accept_max: 0.05         # out-doc yang salah-terima maksimal
   tokenizer: "lowercase_space"   # tokenisasi BM25: huruf kecil + spasi
 
 # -----------------------------------------------------------------------------
