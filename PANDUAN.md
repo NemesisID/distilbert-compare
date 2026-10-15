@@ -69,6 +69,11 @@ Daftar **11 intent** (nama-nama ini **tidak boleh diubah** tanpa persetujuan):
 
 ## A. Membuat berkas (tugas Anda)
 
+> 📄 **Rincian lengkap tiap berkas** (arti tiap kolom, contoh siap salin-tempel,
+> dan cara mengoreksi bila ada kesalahan) ada di dokumen terpisah:
+> **[`PANDUAN_ISI_DATA.md`](PANDUAN_ISI_DATA.md)**. Bagian di bawah ini adalah
+> ringkasannya.
+
 ### Dulu: 3 tips penting agar tidak gagal
 
 1. **Tampilkan ekstensi berkas di Windows.** Buka File Explorer → tab **View** →

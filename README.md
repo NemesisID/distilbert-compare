@@ -94,6 +94,7 @@ Daftar lengkap (`pip freeze`) ada di `reports/library_versions.txt`. Versi kunci
 chatbot-intent/
 ├── config.yaml            # semua parameter (tanpa angka ajaib di kode)
 ├── PANDUAN.md             # panduan langkah-demi-langkah (ramah pemula)
+├── PANDUAN_ISI_DATA.md    # petunjuk detail pengisian & koreksi berkas data
 ├── EXPERIMENTS.md         # log eksperimen
 ├── requirements.txt
 ├── .env.example
