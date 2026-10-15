@@ -49,7 +49,12 @@ Lalu isi minimal:
 | `DATABASE_URL` | lokasi database (default SQLite) | `sqlite:///./data/chatbot.db` |
 | `CORS_ORIGINS` | origin website utama, dipisah koma | `http://localhost:3000` |
 | `RATE_LIMIT_PER_MINUTE` | batas permintaan per menit per IP/kunci | `30` |
-| `HF_HUB_OFFLINE` | `1` bila ingin jalan tanpa internet (model sudah terunduh) | `0` |
+| `HF_HUB_OFFLINE` | **opsional** (hanya untuk `huggingface_hub`). `0` = boleh cek internet saat memuat model; `1` = pakai cache lokal saja. Model sudah ada di cache lokal, jadi `0` pun tetap jalan. | `0` |
+
+> Tentang unduhan model: `cahya/distilbert-base-indonesian` dan
+> `distiluse-base-multilingual-cased-v2` **sudah ada di cache lokal**, jadi tidak
+> perlu internet untuk memuatnya. `HF_HUB_OFFLINE` hanya mengatur apakah Hugging
+> Face boleh mengecek internet; **bukan** syarat agar model bisa dipakai.
 
 ### A2. `data/raw/intents_raw.csv` — data latih asli (PALING PENTING)
 
