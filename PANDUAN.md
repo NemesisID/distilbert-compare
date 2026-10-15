@@ -22,7 +22,8 @@ dioperasikan.
 | Data **sintetis sandbox** untuk uji pipeline | `data/rag_eval/{qa_pairs,in_doc,out_doc}.csv` |
 | Model pratinjau `models/smoke` (uji alur, 1 epoch) | `data/e2e/{mixed_val,mixed_test}.csv` |
 | Model `cahya/distilbert-base-indonesian` terunduh ✅ | Berkas `.env` (kunci API rahasia) |
-| Embedder `distiluse-base-multilingual-cased-v2` terunduh ✅ | Model pembanding `distilbert-base-multilingual-cased` (belum diunduh) |
+| Embedder `distiluse-base-multilingual-cased-v2` terunduh ✅ | |
+| Model pembanding `distilbert-base-multilingual-cased` terunduh ✅ (±520 MB) | |
 
 Daftar **11 intent** (tidak boleh diubah tanpa persetujuan):
 `syarat_pendaftaran`, `alur_seleksi`, `jadwal_kegiatan`, `ketentuan_luaran`,
@@ -51,10 +52,12 @@ Lalu isi minimal:
 | `RATE_LIMIT_PER_MINUTE` | batas permintaan per menit per IP/kunci | `30` |
 | `HF_HUB_OFFLINE` | **opsional** (hanya untuk `huggingface_hub`). `0` = boleh cek internet saat memuat model; `1` = pakai cache lokal saja. Model sudah ada di cache lokal, jadi `0` pun tetap jalan. | `0` |
 
-> Tentang unduhan model: `cahya/distilbert-base-indonesian` dan
-> `distiluse-base-multilingual-cased-v2` **sudah ada di cache lokal**, jadi tidak
-> perlu internet untuk memuatnya. `HF_HUB_OFFLINE` hanya mengatur apakah Hugging
-> Face boleh mengecek internet; **bukan** syarat agar model bisa dipakai.
+> Tentang unduhan model: **ketiga model sudah ada di cache lokal** —
+> `cahya/distilbert-base-indonesian`, `distiluse-base-multilingual-cased-v2`,
+> dan pembanding `distilbert-base-multilingual-cased` — jadi tidak perlu internet
+> untuk memuatnya (boleh set `HF_HUB_OFFLINE=1` bila ingin sepenuhnya offline).
+> `HF_HUB_OFFLINE` hanya mengatur apakah Hugging Face boleh mengecek internet;
+> **bukan** syarat agar model bisa dipakai.
 
 ### A2. `data/raw/intents_raw.csv` — data latih asli (PALING PENTING)
 
@@ -126,14 +129,15 @@ Salin templat:
 
 Nilai `expected_route` salah satu dari: `faq`, `dokumen`, `fallback`.
 
-### A7. (Opsional) Unduh model pembanding
+### A7. ✅ (Sudah dilakukan) Model pembanding sudah diunduh
 
-Untuk membandingkan model primer vs pembanding:
+Model pembanding `distilbert/distilbert-base-multilingual-cased` (±520 MB)
+**sudah ada di cache lokal**, jadi bisa langsung dipakai untuk melatih
+perbandingan (lihat Langkah 4). Bila perlu mengunduh ulang di mesin lain:
 
 ```powershell
 .\.venv\Scripts\python.exe -c "from transformers import AutoModelForSequenceClassification as M, AutoTokenizer as T; T.from_pretrained('distilbert/distilbert-base-multilingual-cased'); M.from_pretrained('distilbert/distilbert-base-multilingual-cased')"
 ```
-(±520 MB, butuh internet. Tidak mengubah sistem apa pun.)
 
 ---
 
@@ -235,7 +239,7 @@ python -m pytest -q            # cek seluruh kode (saat ini 165 tes lulus)
 - [ ] `data/pdf/` diisi PDF berbasis teks
 - [ ] `data/rag_eval/{qa_pairs,in_doc,out_doc}.csv` diisi
 - [ ] `data/e2e/{mixed_val,mixed_test}.csv` diisi
-- [ ] (opsional) model pembanding diunduh
+- [x] model pembanding diunduh
 - [ ] Langkah 1–9 dijalankan berurutan
 - [ ] Evaluasi final dijalankan **sekali** dengan frasa persis
 - [ ] Hasil (non-sandbox) dicatat & dilaporkan
