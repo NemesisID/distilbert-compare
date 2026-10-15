@@ -15,6 +15,9 @@ UPN "Veteran" Jawa Timur. Terdiri dari:
 
 ---
 
+> **Baru di proyek ini?** Baca **[`PANDUAN.md`](PANDUAN.md)** — daftar berkas
+> data yang perlu Anda siapkan beserta urutan langkah menjalankannya.
+
 ## Prasyarat
 
 | Komponen | Wajib |
@@ -89,6 +92,7 @@ Daftar lengkap (`pip freeze`) ada di `reports/library_versions.txt`. Versi kunci
 ```
 chatbot-intent/
 ├── config.yaml            # semua parameter (tanpa angka ajaib di kode)
+├── PANDUAN.md             # panduan: apa yang perlu dibuat & dilakukan
 ├── EXPERIMENTS.md         # log eksperimen
 ├── requirements.txt
 ├── .env.example
