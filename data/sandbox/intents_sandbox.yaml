@@ -33,8 +33,10 @@
   jawaban: "[SANDBOX] Hubungi admin di admin.inkubator@contoh.ac.id."
 
 - intent: sapaan
-  deskripsi: Sapaan pembuka.
-  jawaban: "[SANDBOX] Halo! Ada yang bisa saya bantu terkait program inkubator?"
+  deskripsi: "Sapaan pembuka. (contoh: satu intent boleh punya beberapa jawaban)"
+  jawaban:
+    - "[SANDBOX] Halo! Ada yang bisa saya bantu terkait program inkubator?"
+    - "[SANDBOX] Selamat datang! Silakan tanyakan seputar program inkubator."
 
 - intent: terima_kasih
   deskripsi: Ucapan terima kasih.

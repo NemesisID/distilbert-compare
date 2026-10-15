@@ -7,6 +7,20 @@
 #   - intent     : nama intent (harus sama dengan daftar di config.yaml)
 #     deskripsi  : penjelasan singkat intent
 #     jawaban    : jawaban baku yang ditampilkan chatbot untuk intent ini
+#
+# Kunci `jawaban` menerima DUA bentuk:
+#
+#   1) Satu teks (pakem - selalu jawaban yang sama):
+#        jawaban: "Teks jawaban."
+#
+#   2) Daftar teks (lebih luwes - bot memilih salah satu secara acak tiap
+#      permintaan, tapi isinya tetap teks baku yang Anda setujui):
+#        jawaban:
+#          - "Teks jawaban pertama."
+#          - "Teks jawaban kedua."
+#
+# Catatan: variasi yang pertama adalah "jawaban utama" yang dipakai bila
+# `routing.answer_variants: false` di config.yaml.
 
 - intent: syarat_pendaftaran
   deskripsi: Pertanyaan tentang syarat dan berkas pendaftaran tenant.
@@ -36,9 +50,12 @@
   deskripsi: Pertanyaan tentang cara menghubungi admin/pengelola.
   jawaban: "Contoh jawaban baku kontak admin."
 
+# Contoh bentuk daftar (boleh lebih dari dua; boleh dipakai di intent mana saja):
 - intent: sapaan
   deskripsi: Sapaan pembuka.
-  jawaban: "Halo! Ada yang bisa saya bantu terkait program inkubator?"
+  jawaban:
+    - "Halo! Ada yang bisa saya bantu terkait program inkubator?"
+    - "Selamat datang! Silakan tanyakan seputar program inkubator."
 
 - intent: terima_kasih
   deskripsi: Ucapan terima kasih.

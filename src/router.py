@@ -4,7 +4,9 @@ Menggabungkan:
 - klasifikasi intent DistilBERT (probabilitas **terkalibrasi**),
 - ambang **tau1** (keyakinan) dari ``models/<slug>/calibration.json``,
 - retrieval PDF (dense/BM25/RRF) + ambang **tau2** dari ``vectorstore/tau2.json``,
-- jawaban baku FAQ dari ``data/intents.yaml`` (bukan hasil generasi).
+- jawaban baku FAQ dari ``data/intents.yaml`` (bukan hasil generasi); satu intent
+  boleh punya banyak variasi jawaban yang dipilih acak tiap permintaan
+  (matikan dengan ``routing.answer_variants: false``).
 
 Aturan route:
 1. intent == OOS  -> ``fallback``
@@ -24,12 +26,13 @@ from __future__ import annotations
 
 import argparse
 import json
+import random
 import warnings
 from dataclasses import asdict, dataclass, field
 from pathlib import Path
 
 from src import calibrate, data_io, experiment_log
-from src.answers import load_answers
+from src.answers import load_answer_variants, pick_answer
 from src.train import model_slug
 
 ROUTE_FAQ = "faq"
@@ -113,6 +116,7 @@ class Router:
         vectorstore_dir: str | Path | None,
         answers_path: str | Path,
         method: str | None = None,
+        variant_seed: int | None = None,
     ):
         self.cfg = cfg
         self.routing = cfg["routing"]
@@ -122,10 +126,23 @@ class Router:
 
         self._load_classifier()
         self._load_calibration()
-        self.answers = load_answers(answers_path)
+        self._load_answers(answers_path, variant_seed)
         self._load_index(vectorstore_dir)
 
     # -- pemuatan ---------------------------------------------------------
+
+    def _load_answers(self, answers_path: str | Path, variant_seed: int | None) -> None:
+        """Muat jawaban baku (boleh banyak variasi per intent) + RNG pilihannya.
+
+        ``answer_variants: false`` di config mematikan variasi (jawaban utama
+        tetap dipakai), supaya evaluasi/berkas laporan bisa sepenuhnya deterministik.
+        """
+        self.answer_variants = load_answer_variants(answers_path)
+        # Jawaban utama (variasi pertama) tetap dipertahankan untuk laporan/evaluasi.
+        self.answers = {k: v[0] for k, v in self.answer_variants.items()}
+        self.answer_variants_enabled = bool(self.routing.get("answer_variants", True))
+        seed = variant_seed if variant_seed is not None else self.routing.get("variant_seed")
+        self._rng = random.Random(seed)
 
     def _load_classifier(self) -> None:
         import torch
@@ -245,7 +262,7 @@ class Router:
         if route == ROUTE_DOKUMEN:
             answer = self._document_answer(sources)
         elif route == ROUTE_FAQ:
-            answer = self.answers.get(intent) or str(self.routing["fallback_answer"])
+            answer = self._faq_answer(intent)
         elif reason == "doc_not_found":
             answer = str(self.routing["not_found_answer"])
         else:
@@ -264,6 +281,14 @@ class Router:
             return str(self.routing["not_found_answer"])
         top = sources[0]
         return f"{top['text']} (Sumber: {top['doc']}, hal. {top['page']})."
+
+    def _faq_answer(self, intent: str) -> str:
+        """Ambil jawaban baku (pilih salah satu variasi bila variasi diaktifkan)."""
+        if self.answer_variants_enabled:
+            picked = pick_answer(self.answer_variants.get(intent, []), self._rng)
+        else:
+            picked = self.answers.get(intent, "")
+        return picked or str(self.routing["fallback_answer"])
 
 
 # ---------------------------------------------------------------------------

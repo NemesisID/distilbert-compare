@@ -221,6 +221,21 @@ pakai tombol Tab**, dan pertahankan tanda `-` di awal tiap entri:
 
 > Nama setelah `intent:` **harus sama** dengan 11 daftar di Bagian 0.
 
+> 💡 **Ingin jawaban tidak monoton?** Satu intent boleh punya **beberapa jawaban**
+> — tulis `jawaban:` lalu daftar teksnya seperti ini:
+>
+> ```yaml
+> - intent: sapaan
+>   deskripsi: Sapaan pembuka.
+>   jawaban:
+>     - "Halo! Ada yang bisa saya bantu terkait program inkubator?"
+>     - "Selamat datang! Silakan tanyakan seputar program inkubator."
+> ```
+>
+> Chatbot memilih salah satunya secara acak tiap pertanyaan (tetap teks baku,
+> bukan tulisan AI). Variasi pertama dipakai sebagai jawaban utama. Rinciannya
+> di [`PANDUAN_ISI_DATA.md`](PANDUAN_ISI_DATA.md).
+
 > ✅ Tanda berhasil: berkas `data/intents.yaml` ada dan berisi **11 entri**
 > (masing-masing diawali `- intent:`).
 

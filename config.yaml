@@ -56,6 +56,11 @@ routing:
   not_found_answer: "Informasi tersebut tidak ditemukan di dokumen mitra. Silakan hubungi admin inkubator."
   # Route yang mungkin: faq | dokumen | fallback (dipakai evaluasi e2e).
   routes: [faq, dokumen, fallback]
+  # Banyak jawaban per intent: kunci `jawaban` boleh berupa daftar, lalu bot
+  # memilih salah satu secara acak tiap permintaan (isinya tetap teks baku,
+  # bukan hasil generasi). false = selalu jawaban utama (variasi pertama).
+  answer_variants: true
+  variant_seed: 42       # seed RNG variasi jawaban (null = acak tiap permintaan)
 
 # Jumlah minimum contoh per intent. Nilai default + override khusus.
 # Di bawah ini akan menjadi PERINGATAN (warning), bukan error.

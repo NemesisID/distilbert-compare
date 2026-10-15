@@ -94,7 +94,8 @@ Backend website utama
 - **tau1** = ambang keyakinan intent (dihitung dari data validasi).
 - **tau2** = ambang kecocokan dokumen (dihitung dari data evaluasi retrieval).
 - Jawaban baku FAQ disimpan di database (di-seed dari `data/intents.yaml`),
-  **bukan** disimpan di dalam model.
+  **bukan** disimpan di dalam model. Satu intent boleh punya **banyak variasi
+  jawaban** yang dipilih acak tiap permintaan (`routing.answer_variants`).
 
 ### Saat menyiapkan model (offline, per fase)
 
@@ -131,6 +132,8 @@ Aturan:
 ## 4. Fitur utama
 
 - **Deteksi percakapan di luar cakupan** (`out_of_scope` → fallback).
+- **Jawaban baku yang luwes**: satu intent boleh punya beberapa variasi jawaban
+  (dipilih acak tiap permintaan) — tetap non-generatif, tidak monoton.
 - **Ambang keyakinan** (tau1) + **kalibrasi suhu** agar probabilitas model jujur.
 - **Pencarian dokumen PDF** dengan dua metode + penggabungan **RRF**.
 - **Kutipan bersumber**: jawaban dokumen menyertakan nama dokumen & halaman.
@@ -300,7 +303,7 @@ dan `distiluse-base-multilingual-cased-v2`.
 | `training` | `max_length`, early stopping, grid hyperparameter |
 | `calibration` | pengaturan suhu & pencarian tau1 |
 | `rag` | panjang chunk (90 kata, overlap 20), `top_k`, RRF, ambang tau2 |
-| `routing` | aturan route + intent OOS |
+| `routing` | aturan route, intent OOS, pesan fallback, variasi jawaban (`answer_variants`, `variant_seed`) |
 | `api` | header kunci, rate limit, CORS |
 
 ### `.env` — rahasia (tidak di-commit)
@@ -323,7 +326,7 @@ proyek. **Petunjuk detail tiap berkas ada di [`PANDUAN_ISI_DATA.md`](PANDUAN_ISI
 | Berkas | Untuk apa |
 |--------|-----------|
 | `data/raw/intents_raw.csv` | data latih: pertanyaan + label intent |
-| `data/intents.yaml` | jawaban baku chatbot per intent |
+| `data/intents.yaml` | jawaban baku chatbot per intent (boleh banyak variasi) |
 | `data/pdf/*.pdf` | dokumen mitra (basis jawaban dokumen) |
 | `data/rag_eval/qa_pairs.csv` | uji pencarian: pertanyaan + dokumen + halaman |
 | `data/rag_eval/in_doc.csv` | pertanyaan yang jawabannya ada di PDF |
@@ -422,6 +425,8 @@ $env:PYTHONUTF8 = 1
   / data eval retrieval — tidak pernah menyentuh test.
 - **Kalibrasi**: temperature scaling + pemilihan tau1 (val).
 - **Seed tetap** (42, 43, 44) untuk hasil yang dapat diulang.
+- **Jawaban deterministik bila diperlukan**: `routing.answer_variants: false`
+  membuat setiap intent selalu memakai jawaban utama (variasi pertama).
 - **Model pembanding**: DistilBERT multilingual dan baseline TF-IDF + LinearSVC.
 - **Semua percobaan dicatat otomatis** ke `EXPERIMENTS.md` (dan `reports/`).
 

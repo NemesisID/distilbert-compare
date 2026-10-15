@@ -1,6 +1,8 @@
 """Isi tabel ``responses`` dari ``data/intents.yaml`` (jawaban baku FAQ).
 
-Idempoten (upsert berdasarkan ``intent``). Tidak menjalankan layanan permanen.
+Idempoten (upsert berdasarkan ``intent``). ``jawaban`` boleh berupa satu teks
+atau daftar teks; daftar disimpan penuh sebagai variasi jawaban
+(``jawaban_variants``) sehingga chatbot bisa memilih variasi secara acak.
 
 Contoh:
     .venv\\Scripts\\python.exe -m scripts.seed_responses
@@ -17,14 +19,19 @@ from sqlalchemy import func, select
 from api import database as db
 from api.settings import get_settings
 from src import data_io
-from src.answers import load_answer_entries
+from src.answers import load_answer_entries, normalize_variants
 
 
 def seed_responses(session, entries: list[dict]) -> int:
-    """Upsert entri jawaban baku berdasarkan ``intent``; kembalikan jumlah diproses."""
+    """Upsert entri jawaban baku berdasarkan ``intent``; kembalikan jumlah diproses.
+
+    ``jawaban`` boleh berupa satu teks atau daftar teks. Daftar disimpan penuh di
+    ``jawaban_variants`` (JSON list), sedangkan ``jawaban`` = variasi utama.
+    """
     processed = 0
     for entry in entries:
         intent = str(entry["intent"])
+        variants = normalize_variants(entry.get("jawaban"))
         row = session.scalar(
             select(db.ResponseEntry).where(db.ResponseEntry.intent == intent)
         )
@@ -32,7 +39,8 @@ def seed_responses(session, entries: list[dict]) -> int:
             row = db.ResponseEntry(intent=intent)
             session.add(row)
         row.deskripsi = str(entry.get("deskripsi", ""))
-        row.jawaban = str(entry.get("jawaban", ""))
+        row.jawaban = variants[0] if variants else ""
+        row.jawaban_variants = json.dumps(variants, ensure_ascii=False)
         processed += 1
     session.commit()
     return processed
@@ -66,6 +74,8 @@ def main(argv: list[str] | None = None) -> int:
     with factory() as session:
         seeded = seed_responses(session, entries)
         total = int(session.scalar(select(func.count()).select_from(db.ResponseEntry)) or 0)
+        rows = session.scalars(select(db.ResponseEntry)).all()
+        total_variants = sum(len(r.variants()) for r in rows)
 
     print(
         json.dumps(
@@ -73,6 +83,7 @@ def main(argv: list[str] | None = None) -> int:
                 "answers_file": str(answers),
                 "seeded": seeded,
                 "total_rows": total,
+                "total_variants": total_variants,
                 "database": db_url,
             },
             ensure_ascii=False,

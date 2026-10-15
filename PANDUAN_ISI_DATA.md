@@ -176,7 +176,7 @@ punya:
 |-------|--------|-----|
 | `intent` | **Ya** | Salah satu dari 11 nama intent (harus sama). |
 | `deskripsi` | Opsional | Penjelasan singkat. |
-| `jawaban` | Sangat disarankan | Teks jawaban baku yang ditampilkan chatbot. |
+| `jawaban` | Sangat disarankan | Jawaban baku. Boleh **satu teks** atau **daftar teks** (variasi acak). |
 
 ### Kerangka lengkap 11 intent (salin-tempel, ganti `jawaban`)
 
@@ -226,6 +226,46 @@ punya:
   jawaban: "Maaf, pertanyaan itu di luar cakupan layanan ini. Silakan hubungi admin."
 ```
 
+### Satu jawaban atau banyak jawaban (variasi)?
+
+Kunci `jawaban` menerima **dua bentuk**:
+
+**Bentuk 1 — satu teks (pakem):** selalu jawaban yang sama.
+
+```yaml
+- intent: terima_kasih
+  deskripsi: Ucapan terima kasih.
+  jawaban: "Sama-sama! Semoga informasi ini membantu."
+```
+
+**Bentuk 2 — daftar teks (lebih luwes):** bot memilih **salah satu secara acak**
+tiap permintaan, sehingga jawaban tidak monoton. Isinya tetap teks baku yang
+Anda setujui — tetap bukan tulisan AI.
+
+```yaml
+- intent: sapaan
+  deskripsi: Sapaan pembuka.
+  jawaban:
+    - "Halo! Ada yang bisa saya bantu terkait program inkubator?"
+    - "Selamat datang! Silakan tanyakan seputar program inkubator."
+    - "Selamat datang di layanan informasi Inkubator Bisnis."
+```
+
+Aturan bentuk daftar:
+- Tiap item diawali `- ` (minus + spasi) dan **digarisbawahi indentasinya 2
+  spasi** dari kunci `jawaban:`.
+- Boleh 2, 3, atau lebih variasi; **variasi pertama = jawaban utama** (dipakai
+  bila fitur variasi dimatikan).
+- Boleh dikombinasikan dengan `|` untuk jawaban panjang, mis.:
+  ```yaml
+  jawaban:
+    - |
+      Baris pertama jawaban.
+      Baris kedua jawaban.
+    - "Versi singkatnya."
+  ```
+- Bila ragu, tetap pakai **Bentuk 1** (satu teks) — paling mudah diaudit.
+
 ### Aturan YAML (penting agar tidak error)
 - Indentasi **2 spasi**; **jangan pakai tombol Tab**.
 - Setiap entri diawali `- intent:` (tanda minus + spasi).
@@ -250,16 +290,19 @@ punya:
 ```powershell
 & ".\.venv\Scripts\python.exe" -m scripts.seed_responses
 ```
-Kalau berhasil, jawaban masuk ke database `data/chatbot.db`. Bila ada masalah
-YAML, akan muncul error saat itu (biasanya soal indentasi).
+Kalau berhasil, jawaban masuk ke database `data/chatbot.db` dan muncul laporan
+JSON berisi `total_rows` (jumlah intent) dan `total_variants` (jumlah total
+jawaban, termasuk variasi). Bila ada masalah YAML, akan muncul error saat itu
+(biasanya soal indentasi).
 
 ### Cara mengoreksi
 
 | Gejala | Penyebab | Perbaikan |
 |--------|----------|-----------|
-| `mapping values are not allowed here` / error YAML | Salah indentasi atau tanda `:` di dalam teks tanpa kutip | Rapikan indentasi 2 spasi; bungkus `jawaban` dengan `"..."` |
+| `mapping values are not allowed here` / error YAML | Salah indentasi **atau** tanda titik dua (`:`) di dalam teks `deskripsi`/`jawaban` tanpa kutip | Bungkus teks dengan `"..."`; rapikan indentasi 2 spasi |
 | Chatbot menjawab kosong untuk suatu intent | Entri intent itu belum ada / nama salah | Tambahkan entri dengan nama yang benar |
 | Jawaban tampil terpotong | Tanda kutip tidak berpasangan | Pastikan kutip buka & tutup lengkap |
+| Variasi jawaban tidak muncul (selalu sama) | Hanya ada 1 variasi, atau `routing.answer_variants: false` di `config.yaml` | Tambah item pada daftar `jawaban`; pastikan `answer_variants: true` |
 | Muncul `tab` error | Memakai Tab | Ganti semua Tab jadi 2 spasi |
 
 ---

@@ -26,6 +26,20 @@ class ResponseEntry(Base):
     intent: Mapped[str] = mapped_column(String(64), unique=True, index=True)
     deskripsi: Mapped[str] = mapped_column(Text, default="")
     jawaban: Mapped[str] = mapped_column(Text)
+    # JSON list variasi jawaban; `jawaban` tetap menjadi variasi utama.
+    jawaban_variants: Mapped[str] = mapped_column(Text, default="[]")
+
+    def variants(self) -> list[str]:
+        """Daftar variasi jawaban; fallback ke ``jawaban`` bila tidak ada."""
+        try:
+            data = json.loads(self.jawaban_variants or "[]")
+        except (TypeError, ValueError):
+            data = []
+        if isinstance(data, list):
+            items = [str(x).strip() for x in data if str(x).strip()]
+            if items:
+                return items
+        return [self.jawaban] if self.jawaban else []
 
 
 class QueryLog(Base):

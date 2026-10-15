@@ -165,6 +165,30 @@ konfigurasi, seed, metrik, durasi.
   memakai CSV sintetis sementara di `tmp_path`, tanpa model dan tanpa test set.
 - `python -m pytest -q` -> 165 passed (9 tes final_eval baru).
 
+### 2026-10-15 - Perubahan: banyak jawaban per intent (variasi)
+
+- Atas permintaan pemilik proyek, `data/intents.yaml` kini boleh berisi
+  **satu teks ATAU daftar teks** per intent. Daftar = variasi jawaban yang
+  dipilih **acak tiap permintaan** (isinya tetap teks baku, non-generatif).
+- Kode: `src/answers.py` menambah `normalize_variants`, `load_answer_variants`,
+  `pick_answer` (`load_answers` tetap mengembalikan **variasi pertama** agar
+  kompatibel). `src/router.py` memilih variasi lewat `_faq_answer`.
+- Pengaturan baru di `config.yaml` -> `routing`:
+  `answer_variants: true` (matikan = selalu jawaban utama) dan
+  `variant_seed: 42` (RNG deterministik; tiap proses baru urutan pilihan sama,
+  tiap permintaan dalam satu proses/API berbeda).
+- Database: tabel `responses` menambah kolom `jawaban_variants` (JSON list;
+  `jawaban` tetap variasi utama). Database sandbox **dibangun ulang**
+  (dihapus + di-seed ulang) karena skemanya berubah.
+- Pembaruan template/dokumentasi: `data/intents.template.yaml`,
+  `data/sandbox/intents_sandbox.yaml` (contoh daftar pada intent `sapaan`),
+  `PANDUAN.md`, `PANDUAN_ISI_DATA.md`, `README.md`.
+- Verifikasi: `scripts.seed_responses --sandbox` -> 11 intent / **12 variasi**;
+  `scripts.preflight --sandbox` -> **SIAP**; Router sungguhan membuktikan
+  variasi berubah antar-permintaan dan `answer_variants: false` selalu memakai
+  jawaban utama.
+- `python -m pytest -q` -> **177 passed** (tambah 12 tes variasi jawaban).
+
 ---
 
 ## Log eksperimen
