@@ -47,7 +47,8 @@ dengan chatbot yang:
 
 - memahami **maksud** pertanyaan pengguna (bukan sekadar cocok kata kunci),
   lewat model **DistilBERT** yang dilatih khusus dengan data inkubator;
-- menjawab dengan **jawaban baku resmi** untuk pertanyaan umum;
+- menjawab dengan **jawaban baku resmi** untuk pertanyaan umum — satu intent
+  boleh punya **beberapa variasi jawaban** supaya tidak monoton;
 - mengambil **kutipan dari dokumen PDF** (panduan, jadwal, ketentuan) beserta
   sumber nama dokumen + halaman, untuk pertanyaan isi dokumen;
 - **tidak asal menjawab**: kalau tidak yakin atau pertanyaan di luar cakupan, ia
@@ -84,7 +85,7 @@ Backend website utama
 │   intent = tanya_dokumen ──► cari di PDF (dense/BM25/RRF)     │
 │         └ skor < tau2    ──────────────► fallback             │
 │         └ skor ≥ tau2    ──────────────► dokumen (+ kutipan)  │
-│   intent lain            ──────────────► faq (jawaban baku)   │
+│   intent lain            ──────────────► faq (baku + variasi) │
 └──────────────────────────────────────────────────────────────┘
         │
         ▼
@@ -125,6 +126,8 @@ Aturan:
 - **Tidak** memakai LLM, IndoBERT, GPT, atau arsitektur generatif lain.
 - Jawaban FAQ berasal dari **data** (`data/intents.yaml` → database), bukan
   dihasilkan model.
+- **Banyak variasi jawaban bukan berarti generatif**: daftar variasi tetap teks
+  baku yang ditulis manusia; model hanya memilih salah satu secara acak.
 - Semua parameter ada di **`config.yaml`** (tidak ada angka ajaib di kode).
 
 ---
@@ -158,7 +161,7 @@ Aturan:
 | Keamanan | header `X-API-KEY` + rate limit sederhana |
 | Data & metrik | pandas, scikit-learn |
 | Konfigurasi | `config.yaml` + `.env` (python-dotenv) |
-| Pengujian | pytest (165 tes) |
+| Pengujian | pytest (177 tes) |
 
 Versi terpasang (ringkas) — daftar lengkap di `reports/library_versions.txt`:
 
@@ -214,7 +217,7 @@ chatbot-intent/
 │   ├── train.py           # fine-tuning (single/search/multiseed)
 │   ├── calibrate.py       # temperature scaling + tau1 (val)
 │   ├── router.py          # routing faq/dokumen/fallback
-│   ├── answers.py         # pemuat jawaban baku
+│   ├── answers.py         # pemuat jawaban baku (boleh banyak variasi)
 │   ├── final_eval.py      # evaluasi FINAL (satu-satunya pembaca test set)
 │   └── experiment_log.py  # pencatat otomatis ke EXPERIMENTS.md
 ├── rag/                   # pipeline PDF: pdf_extract, chunking, index, retrieve, eval_retrieval
@@ -225,7 +228,7 @@ chatbot-intent/
 ├── vectorstore/           # indeks vektor (git-ignored)
 ├── reports/               # semua laporan Markdown
 ├── notebooks/             # notebook eksplorasi (memanggil src/)
-└── tests/                 # 165 tes (pytest)
+└── tests/                 # 177 tes (pytest)
 ```
 
 Berkas `*.template.csv` / `*.template.yaml` adalah **templat**: salin ke nama
@@ -333,6 +336,21 @@ proyek. **Petunjuk detail tiap berkas ada di [`PANDUAN_ISI_DATA.md`](PANDUAN_ISI
 | `data/rag_eval/out_doc.csv` | pertanyaan yang jawabannya tidak ada di PDF |
 | `data/e2e/mixed_val.csv` | uji routing pada validasi |
 | `data/e2e/mixed_test.csv` | uji routing **final** (test set terkunci) |
+
+Bentuk `data/intents.yaml` — kunci `jawaban` menerima **satu teks** atau
+**daftar teks** (variasi yang dipilih acak tiap permintaan):
+
+```yaml
+- intent: syarat_pendaftaran
+  deskripsi: Pertanyaan tentang syarat pendaftaran.
+  jawaban: "Satu jawaban resmi yang selalu sama."
+
+- intent: sapaan
+  deskripsi: Sapaan pembuka.
+  jawaban:
+    - "Halo! Ada yang bisa saya bantu terkait program inkubator?"
+    - "Selamat datang! Silakan tanyakan seputar program inkubator."
+```
 
 > Tanpa data asli, seluruh pipeline tetap bisa diuji memakai **data sandbox
 > sintetis** (`--sandbox`). Hasil sandbox **berlabel `[SANDBOX]`** dan **bukan**
@@ -455,6 +473,8 @@ Laporan yang dihasilkan: `data_validation.md`, `leakage_report.md`,
 - Kunci dibaca dari `.env` (`CHATBOT_API_KEY`). Jika tidak ada → layanan
   mengembalikan **503**; kunci salah → **401**.
 - Ada **rate limit** per kunci/IP (`RATE_LIMIT_PER_MINUTE`, default 30).
+- Jawaban pada route `faq` bisa **berbeda tiap permintaan** bila intent punya
+  lebih dari satu variasi jawaban (`routing.answer_variants`).
 - Layanan ini **untuk uji coba**. Jangan dipasang sebagai layanan permanen /
   service Windows tanpa izin pengelola server (templat NSSM/WinSW sengaja
   dinonaktifkan).
@@ -467,7 +487,7 @@ Laporan yang dihasilkan: `data_validation.md`, `leakage_report.md`,
 & ".\.venv\Scripts\python.exe" -m pytest -q
 ```
 
-Saat ini **165 tes lulus**. Tes memakai data sintetis sementara (tidak menyentuh
+Saat ini **177 tes lulus**. Tes memakai data sintetis sementara (tidak menyentuh
 test set proyek).
 
 ---
@@ -510,6 +530,10 @@ test set proyek).
 | 7 – API & database | ✅ kode & uji sandbox (140 tes lulus) |
 | 8 – Deployment (berkas saja) | ✅ kode & uji sandbox (156 tes lulus) |
 | 9 – Evaluasi final | 🟡 siap; menunggu perintah `JALANKAN EVALUASI FINAL` (test set belum dibaca) |
+
+> **Total tes saat ini: 177.** Angka pada tabel di atas adalah riwayat akhir
+> tiap fase; sejak itu ditambahkan **12 tes** untuk fitur variasi jawaban per
+> intent (2026-10-15).
 
 > **Catatan penting:** saat ini **belum ada data asli**, jadi seluruh angka yang
 > pernah dihasilkan bertanda **`[SANDBOX]`** (data sintetis) dan **bukan hasil
